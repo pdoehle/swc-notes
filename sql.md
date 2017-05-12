@@ -874,4 +874,126 @@ Now that we some of the ins-and-outs of working with databases, there are some t
 4. The units for every value should be stored explicitly. We don't have this in our `Survey` table and it's a problem (see Roerich's values).
 
 # Creating and Modifying Data
+So far we have discussed how to get data from databases, but not how to put data in databases. Let's create a new database.
+
+```sql
+.quit
+```
+
+```bash
+sqslite3 new-data.db
+sqlite> .mode column
+sqlite> .header on
+```
+
+Notice, we have a new, empty database.
+
+```sql
+sqlite> .tables
+sqlite> 
+```
+
+Let's use our handout to recreate a new version of the database we were just working with.
+
+```sql
+sqlite> CREATE TABLE Person(id text, personal text, family text);
+```
+
+Notice that after each column header, we put the type of data that will be entered under that column. Most databases support at least the following data types:
+* integer - signed integer
+* real - floating point number
+* text - character string
+* blob (binary large object) - allows objects like images
+* boolean - true or false (represented by 0 and 1 in SQL)
+* date/time values
+
+> Many databases use *hybrid storage* instead of putting everything directly in the database. In a *hybrid storage* model, names of large picture files are stored in the database in order to reference the actual picture file stored elsewhere on the disk.
+
+```sql
+sqlite> CREATE TABLE Site(name text, lat real, long real);
+sqlite> CREATE TABLE Visited(id integer, site text, dated text);
+sqlite> CREATE TABLE Survey(taken integer, person text, quant real, reading real);
+sqlite> .tables
+Person   Site     Survey   Visited
+```
+
+We now have four new, empty tables in our database. We can delete tables by using the `DROP TABLE` command.
+
+```sql
+sqlite> .tables
+Person   Site     Visited
+```
+
+SQL also gives us many tools for carefully defining what kind of data can go into a table. For example, we could recreate `Survey` with more restrictions.
+
+```sql
+sqlite> CREATE TABLE Survey(
+   ...> taken integer not null, -- where reading taken
+   ...> person text,            -- may not know who took it
+   ...> quant real not null,    -- the quantity measured
+   ...> reading real not null,  -- the actual reading
+   ...> foreign key(taken) references Visited(id),
+   ...> foreign key(person) references Person(id)
+   ...> );
+sqlite> .tables
+Person   Site     Survey   Visited
+```
+
+Don't let the multiple lines throw you off. The command follows the same pattern as when it was only on one line, but we've added line breaks to make it a little more readable. Notice the following:
+
+* We can require that data entries have a value by using the `not null` designation.
+* We can designate which keys correspond to primary keys in other tables by using `foreign key()` and `references()`.
+* Anything following `--` is a comment
+
+We can insert data into a blank table using the `INSERT INTO` command.
+
+```sql
+sqlite> INSERT INTO site values('DR-1', -49.85, -128.57);
+sqlite> SELECT * FROM Site;
+name        lat         long      
+----------  ----------  ----------
+DR-1        -49.85      -128.57   
+sqlite> INSERT INTO site values('DR-3', -47.15, -126.72);
+sqlite> SELECT * FROM Site;
+name        lat         long      
+----------  ----------  ----------
+DR-1        -49.85      -128.57   
+DR-3        -47.15      -126.72
+```
+
+We can also transfer values from one table into another.
+
+```sql
+sqlite> CREATE TABLE JustLatLong(lat text, long text);
+sqlite> INSERT INTO JustLatLong SELECT lat, long FROM Site;
+sqlite> SELECT * FROM JustLatLong;
+lat         long      
+----------  ----------
+-49.85      -128.57   
+-47.15      -126.72 
+```
+
+We can modify an existing entry by using `UPDATE`.
+
+```sql
+sqlite> UPDATE JustLatLong SET lat=-50.0 WHERE lat=-49.85;
+sqlite> SELECT * FROM JustLatLong;
+lat         long      
+----------  ----------
+-50.0       -128.57   
+-47.15      -126.72 
+```
+
+Be careful to remember the `WHERE` clause or else the command will update all the entries in the table.
+
+As long as we are careful to keep the database internally consistent, we can use the `DELETE` command to remove an entry.
+
+```sql
+qlite> DELETE FROM JustLatLong WHERE lat=-50.0;
+sqlite> SELECT * FROM JustLatLong;
+lat         long      
+----------  ----------
+-47.15      -126.72 
+```
+
 
