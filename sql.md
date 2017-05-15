@@ -477,7 +477,7 @@ taken       person      quant       reading
 
 Notice the last row of these results. We got results that were `sal` and `lake`, or any of the `roe` results (even those that were not `sal` measurements).
 
-We can make queries based on partial matches as well. In SQL `%` functions as a wildcard just like `*` does for the shell. Let's query all the sites that begin with 'DR'.
+We can make queries based on partial matches as well. In SQL `%` functions as a wild card just like `*` does for the shell. Let's query all the sites that begin with 'DR'.
 
 ```sql
 sqlite> SELECT * FROM Visited WHERE site LIKE 'DR%';
@@ -744,7 +744,7 @@ min(dated)
 1927-02-08
 ```
 
-Let's suppose we suspect bias in our data. We suspect that some sicentists' radiation readings are higher than others.
+Let's suppose we suspect bias in our data. We suspect that some scientists' radiation readings are higher than others.
 
 ```sql
 sqlite> SELECT  person, count(reading), round(avg(reading), 2)
