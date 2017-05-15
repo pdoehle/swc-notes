@@ -1,2 +1,2 @@
 # swc-notes
-Lesson plans for SWC workshops
+My lesson notes for [SWC](https://software-carpentry.org/) workshops.
