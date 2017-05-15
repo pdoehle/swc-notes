@@ -1,6 +1,10 @@
 # SQL
 
 ## Selecting Data
+> * Explain the difference between a table, a record, and a field.
+> * Explain the difference between a database and a database manager.
+> * Write a query to select all values for specific fields from a single table.
+
 
 ### Relational Database
 
@@ -227,6 +231,9 @@ danforth    Frank       Danforth
 ```
 
 ## Sorting and Removing Duplicates
+> * Write queries that display results in a particular order.
+> * Write queries that eliminate duplicate values from data.
+
 
 As we begin an exploration of our Antarctic data, we want to consider the following:
 
@@ -387,6 +394,9 @@ This gives us a good idea about which scientists were at which site.
 > *Answer:* `SELECT DISTINCT quant, person FROM Survey ORDER BY quant ASC;`
 
 ## Filtering
+> * Write queries that select records that satisfy user-specified conditions.
+> * Explain the order in which the clauses in a query are executed.
+
 
 One of the places databases shine is their ability to filter data based on certain criteria. One example of this in SQL is the `WHERE` keyword. Let's query all the `DR-1` sites.
 
@@ -508,6 +518,8 @@ roe         rad
 Just as we would with a complex bash pipe and filter setup, we start with simple SQL queries and add pieces until we have built up a complex SQL query that we are certain works correctly. If we have a large database, queries can take time and this can prove to be too time-consuming. One strategy is to create a database that is a subset and then construct the appropriate queries. Once you know it works, then you can use it with the full data set.
 
 ## Calculating New Values
+> * Write queries that calculate new values for each selected record.
+
 
 After carefully re-reading the expedition logs, we realize that the radiation measurements they report may need to be corrected upward by 5%. Instead of modifying the stored data, we can do this calculation as part of our query.
 
@@ -569,7 +581,10 @@ Valentina Roerich
 Frank Danforth 
 ```
 
-# Missing Data
+## Missing Data
+> * Explain how databases represent missing information.
+> * Write queries that handle missing information correctly.
+
 Missing data is represented in a database by a special value called `null`. We have to be a little bit careful when dealing with `null`.
 
 Let's look at the `Visited` table.
@@ -673,7 +688,11 @@ taken       person      quant       reading
 
 Depending on our situation, we will have to make a judgement on whether or not we want to include the `NULL` value. Since we don't know who took the reading, there is always a chance that it was done by Lake.
 
-# Aggregation
+## Aggregation
+> * Define aggregation and give examples of its use.
+> * Write queries that compute aggregated values.
+> * Explain how missing data is handled during aggregation.
+
 SQL has many different aggregate functions. By aggregate functions, we mean functions like `min` and `max` that take several entries and create a single aggregate result.
 
 > How do we query all the `dated` entries from the `Visited` table?
@@ -770,7 +789,12 @@ pb          3               6.66
 roe         1               11.25 
 ```
 
-# Combining Data
+## Combining Data
+> * Explain the operation of a query that joins two tables.
+> * Explain how to join data in meaningful ways.
+> * Write tables that join queries on equal keys.
+> * Explain what primary and foreign keys are, and why they are useful.
+
 Suppose we need to submit our antarctic data to a website that requires data submissions to be submitted as latitude, longitude, date, quantity, and reading. However, this data is mixed up across different tables in our database. Fortunately, we can combine data from different tables.
 
 ```sql
@@ -865,7 +889,11 @@ rowid       id          personal    family
 5           danforth    Frank       Danforth
 ```
 
-# Data Hygiene
+## Data Hygiene
+> * Explain what an atomic value is.
+> * Explain why every value in a database should be atomic.
+> * Explain what a primary key is and why every record should have one.
+
 Now that we some of the ins-and-outs of working with databases, there are some tips we can follow to make sure that we have "clean" data that is easy to work with in a database.
 
 1. Every value should be atomic since it's easier to combine values than to separate them. (ex: `personal` and `family` in `Person` table)
@@ -873,7 +901,10 @@ Now that we some of the ins-and-outs of working with databases, there are some t
 3. There should be no redundant information. This is balancing act (see `Site` and `Visited`). We could have all the records in one giant table like a spreadsheet, but then we run the risk of needing to change multiple values needlessly when we update information.
 4. The units for every value should be stored explicitly. We don't have this in our `Survey` table and it's a problem (see Roerich's values).
 
-# Creating and Modifying Data
+## Creating and Modifying Data
+> * Write statements that create tables.
+> * Write statements to insert, modify, and delete records.
+
 So far we have discussed how to get data from databases, but not how to put data in databases. Let's create a new database.
 
 ```sql
@@ -996,4 +1027,12 @@ lat         long
 -47.15      -126.72 
 ```
 
+## Programming with Databases in R
+> * Write a short program that executes SQL queries in R.
+> * Explain why most database applications are written in a general-purpose language rather than in SQL.
 
+* Demonstrate how R scripts can query databases.
+* Show R script running in Rstudio.
+* R has many helper functions for interacting with databases.
+* R is better at manipulating data.
+* Point them to further SWC material and more R resources there.
