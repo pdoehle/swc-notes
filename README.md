@@ -1,2 +1,2 @@
 # swc-notes
-Lesson plans for SWC workshops
+Lesson plans for SWC/DC workshops
