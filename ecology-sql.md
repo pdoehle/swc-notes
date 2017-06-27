@@ -149,4 +149,86 @@ FROM surveys;
 > **Answer:** `SELECT DISTINCT year FROM surveys;`
 
 ## Calculated Values
+We can also do calculations with the values in a query.
+
+```sql
+SELECT year, month, day, weight/1000
+FROM surveys;
+```
+
+We now have wieght in kilograms instead of grams.
+
+## Filtering
+We can also select data based on certain criteria. For example, if we only want data for the species *Dipodomys merriami*, we can use the `WHERE` key word.
+
+```sql
+SELECT *
+FROM surveys
+WHERE species_id='DM';
+```
+
+We can also set conditions based on numeric data that meets a certain condition.
+
+```sql
+SELECT * FROM surveys
+WHERE year >= 2000;
+```
+
+Notice, we have all the columns for the years both including and after 2000.
+
+SQL also allows us to filter criteria using the key words `AND` and `OR`.
+
+```sql
+SELECT *
+FROM surveys
+WHERE (year >= 2000) AND (species_id = 'DM');
+```
+
+This query gives us all the columns from the `surveys` table where the year is 2000 or later and the species is *Dipodomys merriami.*
+
+If we want a query that returns information for any of the *Dipodomys* genus, we can use all three species codes in the following query.
+
+```sql
+SELECT *
+FROM surveys
+WHERE (species_id = 'DM') OR (species_id = 'DO') OR (species_id = 'DS');
+```
+
+> **Question:** Write a query that returns the day, month, and species_id for individuals caught on Plot 1 that weight more than 75 grams.
+
+> **Answer:** `SELECT day, month, species_id FROM surveys WHERE (plot_id=1) AND (weight>75);`
+
+## Building More Complex Queries
+We simplify the above query if we have a list of criteria by using the `IN` statement.
+
+Before:
+```sql
+SELECT *
+FROM surveys
+WHERE (species_id = 'DM') OR (species_id = 'DO') OR (species_id = 'DS');
+```
+
+After:
+```sql
+SELECT *
+FROM surveys
+WHERE (year >= 2000) AND (species_id IN ('DM', 'DO', 'DS'));
+```
+
+When writing more complex queries, it is helpful to start simple and slowly add more elements to the query making sure that each part works.
+
+It can also helpful to build your queries using a smaller subset of the data, making sure everything works before using your code on the full database.
+
+Finally, making human-readable comments is also helpful.
+
+```sql
+-- Get post 2000 data on Dipodomys' species
+-- These are in the surveys table, and we are interested in all columns
+SELECT * FROM surveys
+-- Sampling year is in the column `year`, and we want to include 2000
+WHERE (year >= 2000)
+-- Dipodomys' species have the `species_id` DM, DO, and DS
+AND (species_id IN ('DM', 'DO', 'DS'));
+```
+
 
