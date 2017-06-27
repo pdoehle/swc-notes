@@ -231,4 +231,61 @@ WHERE (year >= 2000)
 AND (species_id IN ('DM', 'DO', 'DS'));
 ```
 
+## Sorting
+We can sort our results by using the `ORDER BY` key words. Lets look at our **species** table.
+
+```sql
+SELECT *
+FROM species;
+```
+
+We can order our results by *taxa*.
+
+```sql
+SELECT *
+FROM species
+ORDER BY taxa ASC;
+```
+
+Notice the keyword `ASC` which is short for ascending. We can also display results in descending order.
+
+```sql
+SELECT *
+FROM species
+ORDER BY taxa DESC;
+```
+
+We could also order by genus and then species.
+
+```sql
+SELECT *
+FROM species
+ORDER BY genus ASC, species ASC;
+```
+
+> **Question:** Write a query that returns *year*, *species_id*, and *weight* in kilograms from the surveys table, sorted with the largest weights at the top.
+
+> **Answer:** `SELECT year, species_id, weight/1000 FROM surveys ORDER BY weight DESC;`
+
+We can even sort by a column that does not appear in the final results.
+
+```sql
+SELECT genus, species
+FROM species
+WHERE taxa = 'Bird'
+ORDER BY species_id ASC;
+```
+
+The `WHERE` and `ORDER BY` statements are executed before the `SELECT` statement, allowing us to sort by fields that don't even appear in the final results.
+
+## SQL Aggregation
+
+Aggregate functions combine results from multiple multiple values to produce a single piece of data.
+
+Some of the aggregate functions SQL has available:
+* `COUNT` - counts a set of records
+* `SUM` - sum
+* `MAX` - maximum
+* `MIN` - minimum
+* `AVG` - average
 
