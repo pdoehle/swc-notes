@@ -289,3 +289,36 @@ Some of the aggregate functions SQL has available:
 * `MIN` - minimum
 * `AVG` - average
 
+Let's count the number of records in *surveys*
+
+```sql
+SELECT COUNT(*)
+FROM surveys;
+```
+
+By using `*`, we are telling the `COUNT()` function to count the total number of records.
+
+Let's find out how much all of those individuals weight.
+
+```sql
+SELECT COUNT(*), SUM(weight)
+FROM surveys;
+```
+
+> **Question:** Write a query that returns: toatl weight, average weight, and the min and max weights for all animals caught over the duration of the survey.
+
+> **Answer:** `SELECT SUM(weight), AVG(weight), MIN(weight), MAX(weight) FROM surveys;`
+
+> **Question:** Can you modify it so that it outputs these values only for weights etween 5 and 10?
+
+> **Answer:** `SELECT SUM(weight), AVG(weight), MIN(weight), MAX(weight)`
+> `FROM surveys WHERE (weight>=5) AND (weight<=10);`
+
+We can group our data by a specific category before executing an aggregate command. For example, if we want to count the number of individuals captured by the *species_id*, we could use the `GROUP BY` command.
+
+```sql
+SELECT species_id, COUNT(*)
+FROM surveys
+GROUP BY species_id;
+```
+
