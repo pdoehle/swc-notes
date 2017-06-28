@@ -322,3 +322,77 @@ FROM surveys
 GROUP BY species_id;
 ```
 
+## The HAVING Keyword
+We can also sort results by using the keyword `HAVING` in conjunction with an aggregate command.
+
+```sql
+SELECT species_id, COUNT(species_id)
+FROM surveys
+GROUP BY species_id
+HAVING COUNT(species_id) > 10;
+```
+
+`HAVING` works exactly the same as `WHERE`, but instead of using fields, we use aggregate functions.
+
+> **Question:** Write a query that returns the number of *genus* in each *taxa* from the *species* table. Return only the *taxa* with more than 10 *genus*.
+
+> **Answer:** `SELECT taxa, COUNT(genus) FROM species GROUP BY taxa HAVING COUNT(genus) > 10;`
+
+## Saving Queries for Future Use
+
+We can save a query for future use by using the `CREATE VIEW` command. If we wanted to look at data from May to September during the year 2000, we could use the following query.
+
+```sql
+SELECT *
+FROM surveys
+WHERE year = 2000 AND (month > 4 AND month < 10);
+```
+
+We can save this query for later as a *view* called *summer_2000*.
+
+```sql
+CREATE VIEW summer_2000 AS
+SELECT *
+FROM surveys
+WHERE year = 2000 AND (month > 4 AND month < 10);
+```
+
+We can now directly reference the view as if it were its own table.
+
+```sql
+SELECT *
+FROM summer_2000;
+```
+
+## Handling NULL Values
+Values that are `NULL` are SQL's way of representing an unknown value. The default in the SQLite database manager is to highlight these cells in pink. Let's examine how the database manager deals with `NULL` values by counting the number of male and female individuals.
+
+```sql
+SELECT COUNT(*)
+FROM summer_2000
+WHERE sex != 'F';
+```
+
+We see there are 375 male individuals.
+
+```sql
+SELECT COUNT(*)
+FROM summer_2000
+WHERE sex != 'M';
+```
+
+This query tells us there are 360 female individuals. Counting the total, we should have 735 individuals total.
+
+Let's write a query to check ourselves.
+
+```sql
+SELECT COUNT(*)
+FROM summer_2000;
+```
+
+Why do we end up with a count of 781 individuals total. This is because there were 51 individuals who's sex was not recorded and so these values were `NULL` in the database. Since `NULL` is the database's version of "I don't know," it could not be determined whether or not these records matched the search criteria and so they were not included in the results.
+
+> **Things to keep in mind about `NULL` values:**
+> * Any basic math operation in which one of the records is `NULL` will always return an answer of `NULL`.
+> * Aggregate functions ignore `NULL` values.
+
