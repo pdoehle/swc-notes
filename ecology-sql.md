@@ -396,3 +396,107 @@ Why do we end up with a count of 781 individuals total. This is because there we
 > * Any basic math operation in which one of the records is `NULL` will always return an answer of `NULL`.
 > * Aggregate functions ignore `NULL` values.
 
+## Joins
+
+The `JOIN` command allows us to combine information from two different tables. By default the `JOIN` command produces a cross product.
+
+```sql
+SELECT *
+FROM plots
+JOIN species;
+```
+
+This is typically not very useful, and so we need to specify how we want the information joined using `ON`.
+
+```sql
+SELECT *
+FROM surveys
+JOIN species
+ON surveys.species_id = species.species_id;
+```
+
+Now we have joined information from the *surveys* tables and the *species* table so that records that have the same *species_id* are matched together. Notice that we can use "dot" notation to specify a field within a specific table.
+
+All the fields from the first table are listed, and then all the fields from the second table are listed. This means that *species_id* gets listed twice. To avoid this, we can use the `USING` command.
+
+```sql
+SELECT *
+FROM surveys
+JOIN species
+USING (species_id);
+```
+
+We might not want all the fields from both backgrounds. For example, we might want information on when an individual was captured, but instead of the *species_id*, we want the actual *genus* and *species*.
+
+```sql
+SELECT surveys.year, surveys.month, surveys.day, species.genus, species.species
+FROM surveys
+JOIN species
+ON surveys.species_id = species.species_id;
+```
+
+## Putting It All Together
+
+Let's put all this together. Suppose we want the average mass for individuals on each different kind of plot.
+
+```sql
+SELECT plots.plot_type, AVG(surveys.weight)
+FROM surveys
+JOIN plots
+ON surveys.plot_id = plots.plot_id
+GROUP BY plots.plot_type;
+```
+
+## Functions
+
+SQL has many functions that allow us to manipulate data that we query. We're already seen several aggregate functions like `SUM` and `COUNT`. Another useful function is `IFNULL`.
+
+```sql
+SELECT species_id, sex, IFNULL(sex, 'U')
+FROM surveys;
+```
+
+> **Question:** Write a query that returns 30 instead of `NULL` for values in the `hindfoot_length` column.
+> **Answer:** `SELECT IFNULL(hindfoot_length, 30) FROM surveys;`
+
+The opposite of `IFNULL` is `NULLIF`. This function returns `NULL` if the first argument is equal to the second argument.
+
+We can "null out" plot 7:
+
+```sql
+SELECT species_id, plot_id, NULLIF(plot_id, 7)
+FROM surveys;
+```
+
+## Aliases
+Aliases are a nice tool for making the labels of our columns easier to read. To change the label of a column, we use the `AS` keyword.
+
+Recall our earlier query where we changed all the unknown sexes to 'U'.
+
+```sql
+SELECT species_id, sex, IFNULL(sex, 'U')
+FROM surveys;
+```
+
+Notice the third column is difficult to read. We can change our query as follows to relabel this column.
+
+```sql
+SELECT species_id, sex, IFNULL(sex, 'U') AS non_null_sex
+FROM surveys;
+```
+
+## Some Final Thoughts
+> **Question:** The purpose of SQL is to be able to ask specific questions about our data. With a partner, translate the following questions into a SQL query.
+> * How many plots from each type are there?
+> * What is the average weight of each taxa?
+> * How many specimens of each sex are there for each year?
+> * 
+
+> **How many plots from each type are there?**
+> `SELECT plot_type, COUNT(*) AS num_plots FROM plots GROUP BY plot_type ORDER BY num_plots DESC;`
+
+> **What is the average weight of each taxa?**
+> `SELECT species.taxa AS taxa, AVG(surveys.weight) AS average_weight FROM surveys JOIN species ON species.species_id = surveys.species_id GROUP BY taxa;`
+
+> **How many specimens of each sex are there for each year?**
+> `SELECT year, IFNULL(sex, "unknown") AS sex, COUNT(*) AS num_animals FROM surveys GROUP BY year, sex;`
