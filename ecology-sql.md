@@ -72,15 +72,16 @@ Let's begin by looking at a pre-made database from these `.csv` files.
 * The "Execute SQL" tab is where we can input SQL commands and queries.
 * We can change general database settings in the "DB Settings" tab.
 
-## Principles of Database Design
+## Principles of Database Design (*Slide*)
 * Every record's fields should have atomic values (can't be broken down any further)
-  * *See month, day, and year in the surveys table*
-* In general it is easier to put fields together than to split them apart.
+	* *See month, day, and year in the surveys table*
+	* In general it is easier to put fields together than to split them apart.
 * There should be one field per type of information.
 * Split data into separate tables with each table corresponding to a different class of information.
-* In order to relate infomation between tables, there should be a shared column.
-* Recall that each record has a *primary key* which serves as its "address."
-* Fields that refer to primary keys in other tables are called *foreign keys*.
+
+* In order to relate information between tables, there should be a shared column (*surveys* and *species* share *species_id*,  *plots* and *surveys* share *plot_id*).
+* Recall that each record has a *primary key* which serves as its "address." (*plot_id in plots*)
+* Fields that refer to primary keys in other tables are called *foreign keys*. (*plot_id* in *surveys*)
 
 ## Creating Our Own Database
 Let's see how to recreate this database from scratch using the original `.csv` files.
@@ -118,7 +119,7 @@ SELECT year
 FROM surveys;
 ```
 
-This means that as our queries become more complex, we can spread them accross several lines to make them more readable.
+Therefore, as our queries become more complex, we can spread them accross several lines to make them more readable.
 
 It is also good practice to capitalize the key words in a SQL command so that it is easier to read.
 
@@ -156,8 +157,7 @@ SELECT DISTINCT year, species_id
 FROM surveys;
 ```
 
-> **Challenge:** Find the distinct years in which measurements were taken for the the surveys.
-
+> **Question:** Find the distinct years in which measurements were taken for the surveys.
 > **Answer:** `SELECT DISTINCT year FROM surveys;`
 
 ## Calculated Values
@@ -168,10 +168,10 @@ SELECT year, month, day, weight/1000
 FROM surveys;
 ```
 
-We now have wieght in kilograms instead of grams.
+We now have weight in kilograms instead of grams.
 
 ## Filtering
-We can also select data based on certain criteria. For example, if we only want data for the species *Dipodomys merriami*, we can use the `WHERE` key word.
+We can select data based on certain criteria. For example, if we only want data for the species *Dipodomys merriami*, we can use the `WHERE` key word.
 
 ```sql
 SELECT *
@@ -179,7 +179,7 @@ FROM surveys
 WHERE species_id='DM';
 ```
 
-We can also set conditions based on numeric data that meets a certain condition.
+We can set conditions based on numeric data that meets a certain condition.
 
 ```sql
 SELECT * FROM surveys
@@ -206,12 +206,12 @@ FROM surveys
 WHERE (species_id = 'DM') OR (species_id = 'DO') OR (species_id = 'DS');
 ```
 
-> **Question:** Write a query that returns the day, month, and species_id for individuals caught on Plot 1 that weight more than 75 grams.
+> **Question:** Write a query that returns the day, month, and species_id for individuals caught on Plot 1 that weigh more than 75 grams.
 
 > **Answer:** `SELECT day, month, species_id FROM surveys WHERE (plot_id=1) AND (weight>75);`
 
 ## Building More Complex Queries
-We simplify the above query if we have a list of criteria by using the `IN` statement.
+The above query asking for three different species is somewhat cumbersome. We can simplify it if we have a list of criteria by using the `IN` statement.
 
 Before:
 ```sql
@@ -244,7 +244,7 @@ AND (species_id IN ('DM', 'DO', 'DS'));
 ```
 
 ## Sorting
-We can sort our results by using the `ORDER BY` key words. Lets look at our **species** table.
+We can sort our results by using the `ORDER BY` key words. Let's look at our **species** table.
 
 ```sql
 SELECT *
@@ -295,10 +295,10 @@ The `WHERE` and `ORDER BY` statements are executed before the `SELECT` statement
 ## Objectives
 * Apply aggregation to group records in SQL
 * Filter and order results of a query based on aggregate functions
-* Save a query to make a new tables
+* Save a query to make new tables
 * Apply filters to find missing values in SQL
 
-Aggregate functions combine results from multiple multiple values to produce a single piece of data.
+Aggregate functions combine results from multiple values to produce a single piece of data.
 
 Some of the aggregate functions SQL has available:
 * `COUNT` - counts a set of records
@@ -306,6 +306,7 @@ Some of the aggregate functions SQL has available:
 * `MAX` - maximum
 * `MIN` - minimum
 * `AVG` - average
+* 
 
 Let's count the number of records in *surveys*
 
@@ -323,12 +324,10 @@ SELECT COUNT(*), SUM(weight)
 FROM surveys;
 ```
 
-> **Question:** Write a query that returns: toatl weight, average weight, and the min and max weights for all animals caught over the duration of the survey.
-
+> **Question:** Write a query that returns: total weight, average weight, and the min and max weights for all animals caught over the duration of the survey.
 > **Answer:** `SELECT SUM(weight), AVG(weight), MIN(weight), MAX(weight) FROM surveys;`
 
-> **Question:** Can you modify it so that it outputs these values only for weights etween 5 and 10?
-
+> **Question:** Can you modify it so that it outputs these values only for weights between 5 and 10?
 > **Answer:** `SELECT SUM(weight), AVG(weight), MIN(weight), MAX(weight)`
 > `FROM surveys WHERE (weight>=5) AND (weight<=10);`
 
@@ -410,9 +409,10 @@ FROM summer_2000;
 
 Why do we end up with a count of 781 individuals total. This is because there were 51 individuals who's sex was not recorded and so these values were `NULL` in the database. Since `NULL` is the database's version of "I don't know," it could not be determined whether or not these records matched the search criteria and so they were not included in the results.
 
-> **Things to keep in mind about `NULL` values:**
-> * Any basic math operation in which one of the records is `NULL` will always return an answer of `NULL`.
-> * Aggregate functions ignore `NULL` values.
+**Things to keep in mind about `NULL` values:**
+
+* Any basic math operation in which one of the records is `NULL` will always return an answer of `NULL`.
+* Aggregate functions ignore `NULL` values.
 
 # Joins
 
@@ -472,7 +472,7 @@ GROUP BY plots.plot_type;
 
 ## Functions
 
-SQL has many functions that allow us to manipulate data that we query. We're already seen several aggregate functions like `SUM` and `COUNT`. Another useful function is `IFNULL`.
+SQL has many functions that allow us to manipulate data that we query. We've already seen several aggregate functions like `SUM` and `COUNT`. Another useful function is `IFNULL`.
 
 ```sql
 SELECT species_id, sex, IFNULL(sex, 'U')
@@ -510,12 +510,12 @@ FROM surveys;
 
 ## Some Final Thoughts
 > **Question:** The purpose of SQL is to be able to ask specific questions about our data. With a partner, translate the following questions into a SQL query.
-> * How many plots from each type are there?
+> * How many of each plot type is there?
 > * What is the average weight of each taxa?
 > * How many specimens of each sex are there for each year?
 > * 
 
-> **How many plots from each type are there?**
+> **How many of each plot type is there?**
 > `SELECT plot_type, COUNT(*) AS num_plots FROM plots GROUP BY plot_type ORDER BY num_plots DESC;`
 
 > **What is the average weight of each taxa?**
