@@ -5,7 +5,7 @@
 * Install the [SQLite Manager](https://addons.mozilla.org/en-us/firefox/addon/sqlite-manager/) Add-on for Firefox.
 * Download the [dataset](https://ndownloader.figshare.com/articles/1314459/versions/6) and associated files and unzip it in a convenient location.
 
-## Motivation
+## Motivation (*Slide*)
 Previously, we used Excel and OpenRefine to organize our data into computer-readable data. Now we will move to the next part of the data workflow, which involves reading in our data and using it for analysis and visualization.
 
 ## Dataset
@@ -13,22 +13,27 @@ The data we will be using is a time-series for a small mammal community in south
 
 This is a real dataset that has been used in over 100 publications. It's been simplified just a little bit for the workshop, but you can download the [full dataset](http://esapubs.org/archive/ecol/E090/118/) and work with it using exactly the same tools we’ll learn about today.
 
-## Why Use a Database
+## Objectives
+* Understand the benefits of using a relational database
+* Set up a small database from `.csv` files using SQLite
+* Understand SQLite data types
+
+## Why Use a Database (*Slide*)
 * Databases are similar to spreadsheets, but have key differences.
 * Spreadsheet
-  * Directly edit cells
-  * Use formulas based on other cells
+	* Directly edit cells
+	* Use formulas based on other cells
 * Databases
-  * Send commands (called *queries*) to a database manager (we will use sqlite3).
-  * The database manager manipulates data for us
-  * *manager does lookups, calculations, and queries*
-  * Returns results in a tabular form
+	* Send commands (called *queries*) to a database manager (we will use sqlite3).
+		* The database manager manipulates data for us
+		* *manager does lookups, calculations, and queries*
+	* Returns results in a tabular form
 * So why go through the trouble of using a database?
-  * Keep data separate from analysis.
-    * Easy to reproduce results.
-    * No risk of accidentally changing data while running analysis.
-  * Fast (even for large amounts of data)
-  * Improves quality control of data entry by forcing data types
+	* Keep data separate from analysis.
+		* Easy to reproduce results.
+		* No risk of accidentally changing data while running analysis.
+	* Fast (even for large amounts of data)
+	* Improves quality control of data entry by forcing data types
 
 ## Looking at the Data
 Let's begin by looking at the data. Open the following files in a spreadsheet program: `surveys.csv`, `species.csv`, and `plots.csv`.
@@ -50,6 +55,7 @@ The strength of a database is that it will automate these tasks for us in a way 
 
 ## Looking at SQLite Manager
 Let's begin by looking at a pre-made database from these `.csv` files.
+
 * Open `portal_mamals.sqlite` in the SQLite 3 manager.
 * Databases contain tables (see left-hand menu).
 * To see the contents of a table, click on the table name and click the "Browse & Search" tab.
@@ -91,6 +97,12 @@ Let's see how to recreate this database from scratch using the original `.csv` f
 > Notice that I can add new records by going to the "Browse & Search" tab and using the "Add" button at the upper-right-hand corner.
 
 # Writing SQL Queries
+
+## Objectives
+* Write and build queries
+* Filter data given various criteria
+* Sort the results of a query
+
 Let's begin by using the **surveys** table. Click on the "Execute SQL" tab.
 
 ```sql
@@ -124,7 +136,7 @@ SELECT *
 FROM surveys;
 ```
 
-# Unique Values
+## Unique Values
 We can specify only unique values by using the `UNIQUE` keyword.
 
 ```sql
@@ -278,7 +290,13 @@ ORDER BY species_id ASC;
 
 The `WHERE` and `ORDER BY` statements are executed before the `SELECT` statement, allowing us to sort by fields that don't even appear in the final results.
 
-## SQL Aggregation
+# SQL Aggregation
+
+## Objectives
+* Apply aggregation to group records in SQL
+* Filter and order results of a query based on aggregate functions
+* Save a query to make a new tables
+* Apply filters to find missing values in SQL
 
 Aggregate functions combine results from multiple multiple values to produce a single piece of data.
 
@@ -396,7 +414,12 @@ Why do we end up with a count of 781 individuals total. This is because there we
 > * Any basic math operation in which one of the records is `NULL` will always return an answer of `NULL`.
 > * Aggregate functions ignore `NULL` values.
 
-## Joins
+# Joins
+
+## Objectives
+* Employ joins to combine data from two tables
+* Apply functions to manipulate individual values
+* Employ aliases to assign new names to items in a query
 
 The `JOIN` command allows us to combine information from two different tables. By default the `JOIN` command produces a cross product.
 
