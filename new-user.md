@@ -16,18 +16,18 @@ Things that will help you in a terminal:
 * You can use the up arrow key back through a list of previous commands
 * Tab completion is your friend!
 
-Let's begin by finding out who we are.
+First, I might want to know who I am.
 
 ```bash
 $ whoami
 nelle
 ```
 
-Next we might want to know where am I?
+Next, I might want to know where I am.
 
 ```bash
 $ pwd
-/home/pdoehle
+/home/nelle
 ```
 
 `pwd` stands for print working directory and gives us our "address" on the computer.
@@ -42,7 +42,7 @@ $ pwd
 
 Notice that each of these file paths starts with `/`. This is called "root." You can think of the file system like a tree with all of the folders branching out from the root.
 
-Recall that Cowboy had three major directories: `/home`, `/scratch`, and `/opt`. Notice we started in our `/home/nelle` folder and have now moved to a folder called `example_submission_scripts` inside of `/opt`.
+Recall that Cowboy has three major directories: `/home`, `/scratch`, and `/opt`. Notice we started in our `/home/nelle` folder and have now moved to a folder called `example_submission_scripts` inside of `/opt`.
 
 We can see that `/` has two uses. Not only does it designate root, but it also serves as a divider between folder names.
 
@@ -81,7 +81,7 @@ $ ls
 elephant.pbs  elephant.py  README.md
 ```
 
-There are three files within `python`. We will look at each one closer in a little bit. Notice that we can use `cd` with a *relative path* that does not start with `/`. This is analogous to telling a guest that you home is three blocks south of Main street on Elm.
+There are three files within `python`. We will look at each one in a little bit. Notice that we can use `cd` with a *relative path* that does not start with `/`. This is analogous to telling a guest that you home is three blocks south of Main street on Elm.
 
 Let's use a shortcut to go back to our home directory.
 
@@ -95,6 +95,14 @@ $ pwd
 
 ```bash
 $ ls
+```
+
+Right now we have nothing. Let's change that by making a directory.
+
+```bash
+$ mkdir my_folder
+$ ls
+my_folder
 ```
 
 We can change the way that a program works by setting a "flag." This is like a switch that changes the default behavior of the program or command that is being called.
@@ -117,6 +125,7 @@ Two "files" here are important. They're actually not files but abbreviations. `.
 > Try to move up to the parent directory using `cd`.
 
 ```bash
+$ cd ..
 $ pwd
 /home
 ```
@@ -124,6 +133,7 @@ $ pwd
 > How do I get back home?
 
 ```bash
+$ cd
 $ pwd
 /home/nelle
 ```
@@ -140,13 +150,38 @@ Why did we get an error? It turns out copy is designed to copy only single files
 ```bash
 $ cp -r /opt/example_submission_scripts/python/ .
 $ ls
+my_folder python
+```
+
+Let's remove our empty folder using the "remove" command.
+
+```bash
+$ rm my_folder
+error:
+```
+
+It turns out `rm` is also designed for single files, but it also has a "recursive" flag.
+
+```bash
+$ rm -r my_folder
+$ ls
 python
+```
+
+**Warning!** There is no recycle bin ina Unix shell environment. Once a file is gone, it's gone forever!
+
+The "move" function wears two hats. It cat be used to both move and rename files.
+
+```bash
+$ mv python my_python
+$ ls
+my_python
 ```
 
 There are three files within the `python` directory.
 
 ```bash
-$ cd python/
+$ cd my_python/
 $ ls
 elephant.pbs  elephant.py  README.md
 ```
@@ -171,7 +206,7 @@ Most software will have a `README` file. Always start by reading its contents. I
 $ less elephant.py
 ```
 
-We can scroll up and down in less by using the `j` and `k` keys. We can also use the space bar and `b` button to go up and down in a file one whole page at a time. We will not be worrying about the details of the Python code today, so let's quit out of `less`. To quit `less`, type `q`.
+We can scroll up and down in less by using the `j` and `k` keys. We can also use the space bar and `b` button to go up and down in a file one whole page at a time. We will not be worrying about the details of the Python code today, so let's quit out of `less`. To quit, type `q`.
 
 The last file we have not looked at yet is `elephant.pbs`. This is the submit script. Since Cowboy is a shared resource, all jobs must be submitted to a scheduler. The scheduler then determines when and where your job will run. (Talk about the typical workflow on Cowboy and show the picture from the PPT). In this way, resources are shared equitably.
 
