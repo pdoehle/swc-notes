@@ -8,13 +8,13 @@
 
 * One of the things that makes R so powerful is how many packages are available.
 
-* A package is an "extension" to R that gives you more functions that you wouldn't otherwise have access to.
+* A package is an "extension" to R that gives you more functions.
 
 * We will be using the packages `dplyr` and `tidyr` to manipulate data.
 
 * `dplyr` provides tools for manipulating data that tend to be more straight-forward than using the default bracket notation in base R.
 
-* `tidyr` has functions for reshaping messy data into "clean" data (more on this later).
+* `tidyr` has functions for reshaping messy data into "clean" data.
 
 * The two packages work well together, and we will use them both.
 
@@ -77,14 +77,14 @@ filter(surveys, year == 1995)
 ```r
 surveys2 <- filter(surveys, weight < 5)
 surveys_sml <- select(surveys, species_id, sex, weight)
-head (surveys_sml)
+head(surveys_sml)
 ```
 
 * We could nest functions instead ...
 
 ```r
 surveys_sml <- select(filter(surveys, weight< 5), species_id, sex, weight)
-head (surveys_sml)
+head(surveys_sml)
 ```
 
 * `dplyr` provides pipes!
@@ -128,7 +128,7 @@ surveys %>%
   mutate(weight_kg = weight / 1000)
 ```
 
-* There are too many columns. The column headers are listed but we can't see the new column. Let's use `select()` to just grab a few of the columns.
+* There are too many columns. The column headers are listed but we can't see the new column. Let's use `select()` to grab just a few of the columns.
 
 ```r
 surveys %>% 
@@ -158,7 +158,7 @@ surveys %>%
 * `is.na()` returns true if a value is `NA`.
 
 * If I want to just look at the first few lines, I can use the `head()` function.
-	* Normally `head()` takes the object as it's argument, but in this case we are piping so we can just use `head` without argument.
+	* Normally `head()` takes the object as it's argument, but in this case we are piping so we can just use `head` without an argument.
 
 ```r
 surveys %>% 
@@ -204,7 +204,7 @@ surveys %>%
   print(n=92)
 ``` 
 
-* We got `NaN` for some of the values. This stands for "not a number," and happens when there was no value for calculating the summary statistic.
+* NaN stands for "not a number," and happens when there was no value for calculating the summary statistic.
 
 * We can fix this by removing missing values first. We get the added benefit of not needing to remove `NA`'s when we use the `mean()` function.
 
@@ -234,10 +234,8 @@ surveys %>%
   tally()
 ```
 
-> Note to self: Come back and add `gather()` and `spread()` if time allows.
-
 ## Exporting Data
-* Once you have finished your analysis or cleaned up your data, you may want to export it to a `.csv` file for storage or collaboration. Let's practice that by creating a newly cleaned data set that we export for use in our next section.
+* Once you have finished your analysis or cleaned up your data, you may want to export it to a `.csv` file for storage or collaboration. Let's practice by creating a newly cleaned data set that we export for use in our next section.
 
 * Begin by creating a new folder in your project directory called `data_output`.
 
@@ -251,7 +249,7 @@ surveys_complete <- surveys %>%
          sex != "")
 ```
 
-* In the next section, we will plot how the abundance of species has changed over time, so we want to remove all observations for rare species.
+* In the next section, we will plot how the abundance of different species has changed over time, so we want to remove all observations for rare species.
 	* The criteria we will use for "rare" is species that have been observed less than fifty times.
 
 * First, create a pipeline that counts and filters out the rare species.
@@ -287,7 +285,7 @@ write_csv(surveys_complete, path = "data_output/surveys_complete.csv")
 ```
 
 ## Visualizing Data
-* If not still in the same work space, need to load `tidyverse` and the data.
+* If you not are not still in the same work space, you need to load `tidyverse` and the data.
 
 ```r
 library("tidyverse")
@@ -306,13 +304,13 @@ ggplot(data = surveys_complete)
 
 * Notice RStudio gives us a blank, grey square. We now have a plot object, but we haven't built any of the layers yet.
 
-* We need to add aesthetics, which determine what objects in the plot variables are mapped to.
+* We need to add aesthetics, which define what plot objects our data's variables will be mapped to.
 
 ```r
 ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length))
 ```
 
-* `ggplot` now knows that `weight` will map to the x-axis and `hindfoot_lengt` will map to the y-axis.
+* `ggplot` now knows that `weight` will map to the x-axis and `hindfoot_length` will map to the y-axis.
 
 * We now need to add a geometry layer which will describe what shape `ggplot` uses to map the variables to their associated axis.
 
@@ -372,7 +370,7 @@ timelapse <- ggplot(data = yearly_counts, aes(x = year, y = n))
 timelapse + geom_line()
 ```
 
-* This isn't helpful, we plotted all numbers by year and all the species got lumped together for each year.
+* This isn't helpful, we plotted all numbers by year, but all the species were lumped together for each year.
 
 * We need to plot a separate line for each species.
 
@@ -415,7 +413,7 @@ timelapse + geom_line() + facet_wrap(~ species_id)
 ```
 
 ## Themes
-* As a final layer, `ggplot` offers many different themes for the final product.
+* `ggplot` offers many different themes for the final product. These can also be added as layers.
 
 ```r
 timelapse + geom_line() + facet_wrap(~ species_id) + theme_bw()
@@ -428,7 +426,7 @@ timelapse + geom_line() + facet_wrap(~ species_id) + theme_bw() + theme(panel.gr
 ```
 
 ## Polishing the Final Product
-* Let's change the axis to have more informative names.
+* Let's change the axes to have more informative names.
 
 ```r
 final_plot <- timelapse + geom_line() + facet_wrap(~ species_id) + theme_bw()
@@ -443,7 +441,7 @@ final_plot +
   theme(text=element_text(size = 16))
 ```
 
-* We also have many options for chaning the numbers on the axis to make them more readable.
+* We also have many options for changing the numbers on the axes to make them more readable.
 
 ```r
 final_plot + 
@@ -452,13 +450,13 @@ final_plot +
 ```
 
 # Arranging and Exporting Plots
-* Faceting allows me to split a plot into many different plot, while `gridExtra` allows me to do the opposite, that is, take different plots and put them together in the same figure.
+* Faceting allows me to split a plot into many different plots, while `gridExtra` allows me to do the opposite, that is, take different plots and put them together in the same figure.
 
 ```r
 library(gridExtra)
 ```
 
-* Let's combine two plots and export it.
+* Let's combine two plots into one and export it.
 
 * First, we'll create a box plot with a log scale on the y-axis.
 
