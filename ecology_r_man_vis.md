@@ -446,7 +446,8 @@ final_plot +
 ```r
 final_plot + 
   labs(title = "Observed species in time", x = "Year of observation", y = "Number of species") +
-  theme(text=element_text(size = 16), axis.text.x = element_text(color = "grey20", size = 12, angle = 90, hjust = 0.5, vjust = 0.5))
+  theme(text=element_text(size = 16), axis.text.x = element_text(color = "grey20", size = 12, 
+                                                           angle = 90, hjust = 0.5, vjust = 0.5))
 ```
 
 # Arranging and Exporting Plots
