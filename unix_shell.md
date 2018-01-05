@@ -1064,4 +1064,302 @@ head -n "$2" "$1" | tail -n "$3"
 
 - What if we want to process many files with one script?
 
+> Challenge: Use pipes to create a script that sorts files by length in both this directory and the `data-shell/creatures` directory.
 
+```bash
+$ wc -l *.pdb ../creatures/*.dat
+   20 cubane.pdb
+   12 ethane.pdb
+    9 methane.pdb
+   30 octane.pdb
+   21 pentane.pdb
+   15 propane.pdb
+  163 ../creatures/basilisk.dat
+  163 ../creatures/original-basilisk.dat
+  163 ../creatures/original-unicorn.dat
+  163 ../creatures/unicorn.dat
+  759 total
+$ wc -l *.pdb ../creatures/*.dat | sort -n
+    9 methane.pdb
+   12 ethane.pdb
+   15 propane.pdb
+   20 cubane.pdb
+   21 pentane.pdb
+   30 octane.pdb
+  163 ../creatures/basilisk.dat
+  163 ../creatures/original-basilisk.dat
+  163 ../creatures/original-unicorn.dat
+  163 ../creatures/unicorn.dat
+  759 total
+```
+
+- Since the bash shell is interactive, we can play with things until they work and then save our history to a file to make setting up a script faster.
+
+- Let's create a script that sorts any number of files by length.
+
+```bash
+$ history | tail -n 10 > sorted.sh
+```
+
+- We can use the special variable `$@` which will take any number of arguments (we don't have to know how many).
+
+```bash
+$ nano sorted.sh
+
+  GNU nano 2.5.3                  File: sorted.sh                                 Modified  
+
+# Name: sorted.sh
+# Usage: bash sorted.sh one_or_more_filenames
+# Description: Sort filenames by their length.
+
+wc -l "$@" | sort -n
+
+
+
+
+
+^G Get Help    ^O Write Out   ^W Where Is    ^K Cut Text    ^J Justify     ^C Cur Pos
+^X Exit        ^R Read File   ^\ Replace     ^U Uncut Text  ^T To Linter   ^_ Go To Line
+
+$ bash sorted.sh *.pdb ../creatures/*.dat ../data/elements/*.xml
+    7 ../data/elements/Bk.xml
+    7 ../data/elements/Cf.xml
+    7 ../data/elements/Cm.xml
+    7 ../data/elements/Es.xml
+    7 ../data/elements/Fm.xml
+    7 ../data/elements/Lr.xml
+    7 ../data/elements/Md.xml
+    7 ../data/elements/No.xml
+    8 ../data/elements/Ac.xml
+    8 ../data/elements/At.xml
+    8 ../data/elements/La.xml
+    9 ../data/elements/Ag.xml
+    9 ../data/elements/Al.xml
+    9 ../data/elements/Am.xml
+    9 ../data/elements/Ar.xml
+    9 ../data/elements/As.xml
+    9 ../data/elements/Au.xml
+    9 ../data/elements/Ba.xml
+    .
+    .
+    .
+    .
+    9 ../data/elements/U.xml
+    9 ../data/elements/V.xml
+    9 ../data/elements/W.xml
+    9 ../data/elements/Xe.xml
+    9 ../data/elements/Yb.xml
+    9 ../data/elements/Y.xml
+    9 ../data/elements/Zn.xml
+    9 ../data/elements/Zr.xml
+    9 methane.pdb
+   12 ethane.pdb
+   15 propane.pdb
+   20 cubane.pdb
+   21 pentane.pdb
+   30 octane.pdb
+  163 ../creatures/basilisk.dat
+  163 ../creatures/original-basilisk.dat
+  163 ../creatures/original-unicorn.dat
+  163 ../creatures/unicorn.dat
+ 1667 total
+```
+
+> Homework (optional): Create a script that makes Nelle's analysis from the previous section reproducible.
+
+```bash
+# Calculate stats for Site A and Site B data files.
+for datafile in NENE*[AB].txt
+do
+    echo $datafile
+    bash goostats $datafile stats-$datafile
+done
+```
+
+## Finding Things
+- One final skill that is useful on the command line is finding things.
+
+- There are two tools for finding things: `grep` and `find`.
+
+```bash
+$ cd ../writing/
+$ cat haiku.txt 
+The Tao that is seen
+Is not the true Tao, until
+You bring fresh toner.
+
+With searching comes loss
+and the presence of absence:
+"My Thesis" not found.
+
+Yesterday it worked
+Today it is not working
+Software is like that.
+```
+
+- `grep` searches content within files.
+
+- We use it by typing `grep`, followed by the search term, and then the file that we want to look in.
+
+```bash
+$ grep not haiku.txt 
+Is not the true Tao, until
+"My Thesis" not found.
+Today it is not working
+```
+
+```bash
+$ grep The haiku.txt 
+The Tao that is seen
+"My Thesis" not found.
+```
+
+- `grep` does not pay attention to word boundaries by default. We can change this by using the `-w` option.
+
+```bash
+$ grep -w The haiku.txt 
+The Tao that is seen
+```
+
+- `grep` defines a word as anything separated by a space. If we want to find a phrase, we need to put it in quotes.
+
+```bash
+$ grep -w "is not" haiku.txt 
+Today it is not working
+```
+
+- `grep` can tell us the line number where the search term was found.
+
+```bash
+$ grep -n "it" haiku.txt 
+5:With searching comes loss
+9:Yesterday it worked
+10:Today it is not working
+```
+
+- `grep` is case-sensitive by default. We can make it case *insensitive*.
+
+```bash
+$ grep -nwi "the" haiku.txt 
+1:The Tao that is seen
+2:Is not the true Tao, until
+6:and the presence of absence:
+```
+
+- We can *invert* our search and find all the lines that **don't** have "the".
+
+```bash
+$ grep -nwv "the" haiku.txt 
+1:The Tao that is seen
+3:You bring fresh toner.
+4:
+5:With searching comes loss
+7:"My Thesis" not found.
+8:
+9:Yesterday it worked
+10:Today it is not working
+11:Software is like that.
+```
+
+- These options are only the beginning ...
+
+```bash
+$ grep --help
+Usage: grep [OPTION]... PATTERN [FILE]...
+Search for PATTERN in each FILE or standard input.
+PATTERN is, by default, a basic regular expression (BRE).
+Example: grep -i 'hello world' menu.h main.c
+
+Regexp selection and interpretation:
+  -E, --extended-regexp     PATTERN is an extended regular expression (ERE)
+  -F, --fixed-strings       PATTERN is a set of newline-separated strings
+  -G, --basic-regexp        PATTERN is a basic regular expression (BRE)
+  -P, --perl-regexp         PATTERN is a Perl regular expression
+  -e, --regexp=PATTERN      use PATTERN for matching
+  -f, --file=FILE           obtain PATTERN from FILE
+  -i, --ignore-case         ignore case distinctions
+  -w, --word-regexp         force PATTERN to match only whole words
+  -x, --line-regexp         force PATTERN to match only whole lines
+  -z, --null-data           a data line ends in 0 byte, not newline
+
+Miscellaneous:
+  -s, --no-messages         suppress error messages
+  -v, --invert-match        select non-matching lines
+  -V, --version             display version information and exit
+      --help                display this help text and exit
+   .
+   .
+   .
+```
+
+- `find` is used to find files themselves.
+
+- To use `find`, type `find`, followed by where you want to look, then the search terms/options.
+
+```bash
+$ find .
+.
+./data
+./data/two.txt
+./data/LittleWomen.txt
+./data/one.txt
+./thesis
+./thesis/empty-draft.md
+./haiku.txt
+./tools
+./tools/stats
+./tools/old
+./tools/old/oldtool
+./tools/format
+```
+
+- We can look for only directories.
+
+```bash
+$ find . -type d
+.
+./data
+./thesis
+./tools
+./tools/old
+```
+
+- We can search for only files.
+
+```bash
+$ find . -type f
+./data/two.txt
+./data/LittleWomen.txt
+./data/one.txt
+./thesis/empty-draft.md
+./haiku.txt
+./tools/stats
+./tools/old/oldtool
+./tools/format
+```
+
+- We can search for a specific file. Let's find all the text files.
+
+```bash
+$ find . -name *.txt
+./haiku.txt
+```
+
+- What happened?
+
+- Remember that the shell expands wildcards first before executing commands. Here's how to fix it:
+
+```bash
+$ find . -name '*.txt'
+./data/two.txt
+./data/LittleWomen.txt
+./data/one.txt
+./haiku.txt
+```
+
+- We can use the `$()` construction to use `grep` and `find` together.
+
+```bash
+$ grep "FE" $(find .. -name '*.pdb')
+../data/pdb/heme.pdb:ATOM     25 FE           1      -0.924   0.535  -0.518
+```
