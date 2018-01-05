@@ -48,7 +48,7 @@ cd
 		- Write up the results for the upcoming issue of *Aquatic Goo Letters*, which is due at the end of the month.
 	- It takes half an hour for the assay machine to process each sample, and two minutes to set each one up.
 		- With 8 assay machines in the lab, this step will *only* take two weeks.
-	- If she runs `goostats` and `goodiff` by hand, she will need to enter filenames and click `OK` 46,370 times.
+	- If she runs `goostats` and `goodiff` by hand, she will need to enter file names and click `OK` 46,370 times.
 		- At 30 seconds each, she will need more than two weeks.
 	- Nelle is not going to make her deadline.
 	- Let's see if the Bash terminal can help her.
@@ -290,7 +290,7 @@ $ ls -aF
 ```
 
 - Other useful shortcuts when using the terminal:
-	- `Tab` autocomplete
+	- `Tab` auto-complete
 	- `~` stands for your home directory
 	- The up arrow cycles through your history of commands
 	- `Ctrl`-`C` stops execution and returns your prompt
@@ -355,7 +355,7 @@ it's "share and thrive."
 
 - Type `Ctrl`-`X` to exit.
 - Type `Y` to save changes.
-- Hit `Enter` to keep the filename the same.
+- Hit `Enter` to keep the file name the same.
 
 ```bash
 $ ls
@@ -377,7 +377,7 @@ $ rm draft.txt
 $ ls
 ```
 
-- Remove is not like the recycle bin, it's permanant, so be careful!
+- Remove is not like the recycle bin, it's permanent, so be careful!
 
 - Let's move up a directory and recreate the file.
 
@@ -443,7 +443,7 @@ $ ls thesis/
 quotes.txt
 ```
 
-- `mv` will silenty overwrite files, but you can also use the `-i` option with `mv` as well.
+- `mv` will silently overwrite files, but you can also use the `-i` option with `mv` as well.
 
 - Let's move `quotes.txt` back to the current working directory.
 
@@ -534,7 +534,7 @@ $ tree .
 
 - We will now see how to put basic commands together into powerful workflows.
 
-- Unix systems are organized around a "small pieces, loosly joined" philosophy.
+- Unix systems are organized around a "small pieces, loosely joined" philosophy.
 	- Each tool does one thing (well) and one thing only.
 	- Multiple tools are put together to do complex tasks.
 
@@ -734,7 +734,7 @@ NENE01971Z.txt  NENE02040Z.txt
 
 - She informs you there are other analyses she can use them for, so she can't delete them.
 
-- Another wildcard expression will allow us to select just files that end in "A" or "B"
+- Another wild card expression will allow us to select just files that end in "A" or "B"
 
 ```bash
 $ ls *[AB].txt
@@ -770,9 +770,9 @@ UPDATED: 1738-11-24
 
 - Explain the different parts of a loop and what they do.
 
-- Talk about good variable naming conventions (filename versus x, or temperature)
+- Talk about good variable naming conventions (file name versus x, or temperature)
 
-- Let's make our loop slighly more complicated.
+- Let's make our loop slightly more complicated.
 
 ```bash
 $ for filename in *.dat
@@ -827,9 +827,9 @@ CGTAACGGGT
 
 - `echo` prints whatever it is given.
 
-- Whitespace is used to separate items in a list.
+- White space is used to separate items in a list.
 
-> Challenge: What happens when we try to use wildcards to copy multiple files?
+> Challenge: What happens when we try to use wild cards to copy multiple files?
 > `$ cp *.dat original-*.dat`
 > Why? How can we fix this with a loop?
 
@@ -838,7 +838,7 @@ $ cp *.dat original-*.dat
 cp: target 'original-*.dat' is not a directory
 ```
 
-- Since wildcards are expanded by the shell before the command is executed, we have confused `cp`.
+- Since wild cards are expanded by the shell before the command is executed, we have confused `cp`.
 
 ```bash
 $ for filename in *.dat
@@ -853,7 +853,7 @@ basilisk.dat  original-basilisk.dat  original-unicorn.dat  unicorn.dat
 
 - `goostats` calculates statistics from a protein file.
 
-- The program is run by typing `bash goostats` and giving it two arguements: the file you are analyzing, and the output file where the data is saved.
+- The program is run by typing `bash goostats` and giving it two arguments: the file you are analyzing, and the output file where the data is saved.
 
 - Let's build the loop in steps using `echo`.
 
@@ -943,7 +943,7 @@ NENE02043B.txt
 ```
 
 ## Shell Scripts
-- In order to make our workflow reproducable, we save a workflow into a text file and recall the entire workflow any time we need it.
+- In order to make our workflow reproducible, we save a workflow into a text file and recall the entire workflow any time we need it.
 
 - This makes it much faster to repeat a task next time we need to do it.
 
@@ -1352,7 +1352,7 @@ $ find . -name *.txt
 
 - What happened?
 
-- Remember that the shell expands wildcards first before executing commands. Here's how to fix it:
+- Remember that the shell expands wild cards first before executing commands. Here's how to fix it:
 
 ```bash
 $ find . -name '*.txt'
