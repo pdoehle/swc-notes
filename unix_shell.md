@@ -28,7 +28,7 @@ cd
 	- The computer reads, executes, and prints output
 	- User types a new command.
 
-- A shell is program that run on your computer and gives you a CLI to interact with the computer.
+- A shell is a program that runs on your computer and gives you a CLI to interact with the computer.
 
 - The shell primarily calls other programs on the computer, but gives you a way to interact with those programs.
 
@@ -44,12 +44,12 @@ cd
 	- She has collected 1,520 samples and needs to ...
 		- Run each sample through an assay machine that will measure the relative abundance of 300 different proteins
 		- Calculate statistics for each protein separately using a program called `goostats`
-		- Compare statistics using a program called `goodiffi`
+		- Compare statistics using a program called `goodiff`
 		- Write up the results for the upcoming issue of *Aquatic Goo Letters*, which is due at the end of the month.
 	- It takes half an hour for the assay machine to process each sample, and two minutes to set each one up.
 		- With 8 assay machines in the lab, this step will *only* take two weeks.
 	- If she runs `goostats` and `goodiff` by hand, she will need to enter filenames and click `OK` 46,370 times.
-		- At 30 each, she will need more than two weeks.
+		- At 30 seconds each, she will need more than two weeks.
 	- Nelle is not going to make her deadline.
 	- Let's see if the Bash terminal can help her.
 
@@ -100,7 +100,7 @@ $ pwd
 - Give `cd` a path to change locations to a specific directory.
 
 ```bash
-$ cd Downloads/data-shell/
+$ cd Desktop/data-shell/
 $ pwd
 /home/nelle/Desktop/data-shell
 ```
@@ -121,7 +121,7 @@ creatures/  molecules/           notes.txt  solar.pdf
 data/       north-pacific-gyre/  pizza.cfg  writing/
 ```
 
-- `-F` is flag/option. It acts like a switch that changes some aspect of a commands behavior.
+- `-F` is a flag/option. It acts like a switch that changes some aspect of a commands behavior.
 
 - `ls -F` puts a `/` mark behind all directories so we can distinguish them from files.
 
@@ -325,7 +325,7 @@ creatures  molecules           notes.txt  solar.pdf  writing
 data       north-pacific-gyre  pizza.cfg  thesis
 ```
 
-- Don't use spaces in you file names.
+- Don't use spaces in your file names.
 
 - You can use `_` or `-` instead.
 
@@ -338,7 +338,9 @@ $ ls thesis/
 - `nano` is a text-based text editor that we can use to create a file.
 
 ```bash
+$ cd thesis
 $ nano draft.txt
+
   GNU nano 2.5.3                  File: dreaft.txt                                Modified  
 
 It's not "publish or perish" anymore,
@@ -380,7 +382,9 @@ $ ls
 - Let's move up a directory and recreate the file.
 
 ```bash
+$ cd ..
 $ nano draft.txt
+
   GNU nano 2.5.3                  File: draft.txt                                 Modified  
 
 "The problem with quotes on the Internet is that it is hard to verify their authenticity."
@@ -454,6 +458,7 @@ $ ls thesis/
 - Copy works similarly to `mv`, except it makes a copy of the file.
 
 ```bash
+$ cp quotes.txt thesis/quotations.txt
 $ ls
 creatures  molecules           notes.txt  quotes.txt  thesis
 data       north-pacific-gyre  pizza.cfg  solar.pdf   writing
@@ -727,7 +732,7 @@ NENE01971Z.txt  NENE02040Z.txt
 
 - Nelle checks the log and realizes those two samples are missing depth recordings.
 
-- She informs you there are other analyses she can use them for so she can't delete them.
+- She informs you there are other analyses she can use them for, so she can't delete them.
 
 - Another wildcard expression will allow us to select just files that end in "A" or "B"
 
@@ -846,7 +851,7 @@ basilisk.dat  original-basilisk.dat  original-unicorn.dat  unicorn.dat
 
 - Nelle is ready to begin analyzing her files using `goostats`.
 
-- `goostats` calculates some statistics from a protein file.
+- `goostats` calculates statistics from a protein file.
 
 - The program is run by typing `bash goostats` and giving it two arguements: the file you are analyzing, and the output file where the data is saved.
 
@@ -938,7 +943,7 @@ NENE02043B.txt
 ```
 
 ## Shell Scripts
-- In order to make our workflow reproducable we save a workflow into a text file and recall the entire workflow any time we need it.
+- In order to make our workflow reproducable, we save a workflow into a text file and recall the entire workflow any time we need it.
 
 - This makes it much faster to repeat a task next time we need to do it.
 
@@ -1039,11 +1044,11 @@ ATOM     13  H           1      -1.183   0.500  -1.412  1.00  0.00
 ATOM     14  H           1      -1.259   1.420   0.112  1.00  0.00
 ```
 
+- It is important to use comments in your scripts so others can use them (and you can six months later).
+
 - `#` indicates a comment in bash.
 
 - The computer ignores lines that start with `#` (for human eyes only).
-
-- It is important to use comments in your scripts so others can use them (and you can six months later).
 
 ```bash
 $ nano middle.sh
@@ -1064,7 +1069,7 @@ head -n "$2" "$1" | tail -n "$3"
 
 - What if we want to process many files with one script?
 
-> Challenge: Use pipes to create a script that sorts files by length in both this directory and the `data-shell/creatures` directory.
+> Challenge: Use pipes to create a workflow that sorts files by length in both this directory and the `data-shell/creatures` directory.
 
 ```bash
 $ wc -l *.pdb ../creatures/*.dat
