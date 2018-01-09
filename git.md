@@ -51,7 +51,7 @@ $ git init
 Initialized empty Git repository in /home/nelle/Desktop/planets/.git/
 ```
 
-- Creates a hidden file, `.git`, that keeps a record of all our project changes.
+- Creates a hidden file, `.git`, that keeps a record of all our project's changes.
 
 ```bash
 $ ls -a
@@ -154,7 +154,7 @@ On branch master
 nothing to commit, working directory clean
 ```
 
-- We can see the projects history using `git log`.
+- We can see the project's history using `git log`.
 
 ```bash
 $ git log
@@ -174,7 +174,7 @@ Cold and dry, but everything is my favorite color.
 The two moons may be a problem for Wolfman.
 ``` 
 
-- Once again, `git`, notes the changes, but does not track them.
+- Once again, `git` notes the changes, but does not track them.
 
 ```bash
 $ git status
@@ -203,7 +203,7 @@ index 077071c..42d92e3 100644
 +The two moons may be a problem for Wolfman.
 ```
 
-- Shows the difference between the state of the file and the most recently saved version.
+- Shows the difference between our project as it stands and the files being tracked.
 
 - Line 1: output similar to the Unix `diff` command.
 
@@ -222,7 +222,7 @@ $ git commit -m "Add concerns about effects of Mars' moons on Wolfman"
  1 file changed, 1 insertion(+)
 ```
 
-- Notice `git` has a two-step process of staging and then committing?
+- Notice `git` has a two-step process of staging and then committing.
 
 - We can think of this like a family portrait.
 	- staging is getting everybody in the frame
