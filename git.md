@@ -1,5 +1,44 @@
 # Version Control with Git
 
+## Automated Version Control
+- How many of you can relate to the poor graduate student in the comic?
+
+- Git is a command-line based version control system.
+
+- Version control systems you may already be familiar with: Microsoft Word's Track Changes, Google Docs' version history, or LibreOffice's Recording and Displaying Changes.
+
+- Version control systems start with a base document and then record each change separately, like the recording of a tape the can be reewound.
+
+- If you think of the changes as separate from the document itself, you can have multiple versions of the same document.
+
+- If there is no conflict between different versions, you can even bring them back together as a unified document.
+
+- Git is a version control system that manages this and more.
+
+- It allows you to decide what changes are tracked and keeps track of each version (called *commits*) of your project.
+
+- The complete history of commits for a particular project (along with their metadata) make up a *repository*.
+
+## Setting Up Git
+- Go to [GitHub's](https://github.com/) webpage and setup an account if you don't already have one.
+
+- Git commands are written as `git verb` (and optional flags)
+
+- Suggested settings for this lesson:
+
+```bash
+$ git config --global user.name "Nelle Nemo"
+$ git config --global user.email "nelle@university.edu"
+$ git config --global color.ui "auto"
+$ git config --global core.editor "nano -w"
+```
+
+- You can check that you have the correct settings:
+
+```bash
+$ git config --list
+```
+
 ## Creating a Repository
 - Create a directory and initialize a `git` project.
 
@@ -505,4 +544,143 @@ Ignored files:
 nothing to commit, working directory clean
 ```
 
+## Remotes in GitHub
+- Version control becomes particularly powerful when we use it in collaboration with others.
 
+- Hosting services like [GitHub](https://github.com/), [BitBucket](https://bitbucket.org/), or [GitLab](https://gitlab.com/) allow us to host our Git repos in a central reposity and share them with collaborators.
+
+- Git allows us to track who made what changes and when they made them, and even provides for resolving conflicts when working together on a file.
+
+- Let's collaborate on a project together.
+
+- Go to my GitHub page and click on the countries repo.
+
+- Any repo that is public can be forked and you can work on your own version.
+
+- Fork the repo into your own GitHub.
+
+- Click the "Clone or download" button and copy the link to your clipboard.
+
+- Past the link into your terminal and clone the repo to your local computer.
+
+```bash
+$ cd ~/Desktop/
+$ git clone https://github.com/nelle/countries.git
+Cloning into 'countries'...
+remote: Counting objects: 207, done.
+remote: Compressing objects: 100% (204/204), done.
+remote: Total 207 (delta 3), reused 207 (delta 3), pack-reused 0
+Receiving objects: 100% (207/207), 22.67 KiB | 0 bytes/s, done.
+Resolving deltas: 100% (3/3), done.
+Checking connectivity... done.
+$ cd countries/
+```
+
+- Pick a country and type it on the Etherpad.
+
+- If somebody already picked your country, you will need to pick a different one.
+
+- Add an interesting fact in your country's file by using `nano` to edit the file.
+
+```bash
+$ cd countries/
+$ nano China.md
+```
+
+- Commit your changes.
+
+```bash
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   China.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+$ git add China.md 
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   China.md
+
+$ git commit -m "Add official language"
+[master 1c533c4] Add official language
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+nothing to commit, working directory clean
+```
+
+- We are ready to push the changes up to the remote repository.
+
+```bash
+$ git push origin master 
+Username for 'https://github.com': nelleuniversity.edu
+Password for 'https://nelle@university.edu@github.com': 
+Counting objects: 4, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 431 bytes | 0 bytes/s, done.
+Total 4 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/OSU-Carpentry/countries.git
+   f15fb28..1c533c4  master -> master
+```
+
+- The changes are now reflected in the remote repo.
+
+- We can request to make changes to my original repo on GitHub by making a "pull request."
+
+- Use the "Pull requests" tab and click "New pull request," to make a pull request.
+
+- Make sure "base fork" is my countries repo, and "base" is "master."
+
+- Make sure "head fork" is your countries repo and "compare" is "master."
+
+- Click "Create pull request."
+
+- Make your case and submit it.
+
+- Owner can accept, ask for more detail, or decline the pull request.
+
+- Once all the collaborative changes have been accepted, our local copies now need to reflect all the updates.
+
+- Copy the url for my original repo.
+
+```bash
+$ git remote add upstream https://github.com/nelle/countries
+$ git fetch upstream 
+remote: Counting objects: 5, done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 5 (delta 1), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (5/5), done.
+From https://github.com/nelle/countries
+ * [new branch]      master     -> upstream/master
+$ git merge upstream/master 
+Updating 1c533c4..baccecb
+Fast-forward
+ countries/United_Kingdom.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+$ cat United_Kingdom.md 
+##United_Kingdom
+## population
+
+
+## capital
+
+ 
+## official language
+English
+
+## interesting trivia
+```
+
+- Congratulations! We just collaborated on a GitHub project!
