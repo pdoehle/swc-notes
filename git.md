@@ -7,7 +7,7 @@
 
 - Version control systems you may already be familiar with: Microsoft Word's Track Changes, Google Docs' version history, or LibreOffice's Recording and Displaying Changes.
 
-- Version control systems start with a base document and then record each change separately, like the recording of a tape the can be reewound.
+- Version control systems start with a base document and then record each change separately, like the recording of a tape the can be rewound.
 
 - If you think of the changes as separate from the document itself, you can have multiple versions of the same document.
 
@@ -58,7 +58,7 @@ $ ls -a
 .  ..  .git
 ```
 
-- If we delete this directory, we will lose the hitory of our project.
+- If we delete this directory, we will lose the history of our project.
 
 - Check that our project is up to date.
 
@@ -139,7 +139,7 @@ $ git commit -m "Start notes on Mars as a base"
 
 - Good commit messages ...
 	- start with a brief (<50 characters) comment,
-	- a longer descripton can follow separated by a blank line.
+	- a longer description can follow separated by a blank line.
 
 - The initial comment should ...
 	- be written in the imperative mood,
@@ -225,7 +225,7 @@ $ git commit -m "Add concerns about effects of Mars' moons on Wolfman"
 - Notice `git` has a two-step process of staging and then committing?
 
 - We can think of this like a family portrait.
-	- staging is getting everybody in the fram
+	- staging is getting everybody in the frame
 	- committing is taking the photo
 
 - Why the two-step process? Why not just commit?
@@ -457,7 +457,7 @@ On branch master
 nothing to commit, working directory clean
 ```
 
-- Remember to use the commit identifier for the commit *before* the change we are tyring to undo.
+- Remember to use the commit identifier for the commit *before* the change we are trying to undo.
 
 ## Ignoring Things
 - Sometimes there are files that we want Git to ignore.
@@ -547,7 +547,7 @@ nothing to commit, working directory clean
 ## Remotes in GitHub
 - Version control becomes particularly powerful when we use it in collaboration with others.
 
-- Hosting services like [GitHub](https://github.com/), [BitBucket](https://bitbucket.org/), or [GitLab](https://gitlab.com/) allow us to host our Git repos in a central reposity and share them with collaborators.
+- Hosting services like [GitHub](https://github.com/), [BitBucket](https://bitbucket.org/), or [GitLab](https://gitlab.com/) allow us to host our Git repos in a central repository and share them with collaborators.
 
 - Git allows us to track who made what changes and when they made them, and even provides for resolving conflicts when working together on a file.
 
