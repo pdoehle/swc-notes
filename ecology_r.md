@@ -1,5 +1,37 @@
+## Introduction
+### R
+- R and RStudion are two different pieces of software.
+	- Describe the differences
+- In R there is no pointing and clicking, and that a good thing ...
+- R allows you to reproduce your work faster.
+- R has over 10,000 packages.
+- R was made for data, and it scales.
+- R produces high resolution graphics that are ready for publication.
+- R is free, open-source, cross platform, and community supported.
+
+### R Studio
+- R studio is an Integrated Development Environment (IDE).
+- RStudio can: write code, navigate files, inspect variables, visualize plots, integrate with Git for version control, develop packages, and write shiny apps.
+- It is separate from R, but gives us a nicer way to interact with R.
+- Show the "Help," "Plots," and "Files" tabs.
+- Show the "Console" window.
+	- Console commands are forgotten after your session.
+- Show the "Script" window.
+	- You can save script commands for later.
+	- `Ctrl`+`Enter` shortcut for testing a line of code in the console.
+
+### Project directory
+- Good practice to contain the whole project in a single "working directory."
+- Relative links are portable.
+- It's a good idea to have separate folders for raw and clean data, and for scripts.
+- It's a good idea to determine a system you like and keep it consistent across projects.
+
 ## Creating Objects in R
+- Let's start a new project: *File* -> *New Project* -> *New Directory* -> *New Project* -> [ *Give your project a descriptive name* ] -> *Create Project*
+- Under the "Files" tab, create a new folder called `data`.
 - To begin with, R will do most math operations by tying it into the window.
+- `>` is the prompt. It means R is ready to accept input.
+- `+` means that R is expecting more input and that your command is not complete yet (this allows for multi-line commands).
 
 ```r
 3 + 5
@@ -10,6 +42,8 @@
 - The assignment operator in R is `<-`
 
 > In many programming languages, data is stored in *variables.* R uses the term *object* due to differences in the way memory is managed in R.
+
+> !!!REVIEW AT BEGINNING OF SECOND WORKSHOP!!!
 
 ```r
 weight_kg <- 55
@@ -49,12 +83,14 @@ weight_kg <- 57.5
 
 - We can store the results in a new variable
 
+> !!!REVIEW AT BEGINNING OF SECOND WORKSHOP!!!
+
 ```r
 weight_lb <- 2.2 * weight_kg
 weight_lb
 ```
 
-- If I now change the value of `weight_kg`, it will not change the value saved in `weight_lb`
+- If I now change the value of `weight_kg`, it *will not* change the value saved in `weight_lb`
 
 ```r
 weight_kg <- 100
@@ -65,9 +101,9 @@ weight_lb
 - The computer will ignore that line and it is for your reference
 - Making comments is a good practice as it provides reference for others (or yourself in six months) as to what is happening in your code
 
-- RStudio has the shortcut `Ctrl`+`Shift`+`C` for highlighting multiple lines at once
+- RStudio has the shortcut `Ctrl`+`Shift`+`C` for commenting multiple lines at once whle scripting.
 
-> Demonstrate `Ctrl` + `Shift` + `C` on the following lines of code:
+> Demonstrate `Ctrl` + `Shift` + `C` on the following lines of code and the script window:
 
 ```r
 mass <- 47.5
@@ -107,6 +143,20 @@ round(3.14159)
 args(round)
 ```
 
+- We can look up the manual entry for a specific function.
+
+```r
+?round
+```
+
+- We can make general help searches if we don't know the function name.
+
+```r
+??ceiling
+```
+
+- RStudion has great built-in help, but sometimes a quick Google or Stack Exchange search is the best place to get help with examples.
+
 - We have a list of arguments and we see that `digits=0` defaults to 0
 - We can look up more details about the function by using a `?`
 
@@ -118,6 +168,12 @@ args(round)
 
 ```r
 round(3.14159, 2)
+```
+
+- I can also label the arguments that I pass to a function.
+
+```r
+round(x = 3.14159, digits = 2)
 ```
 
 - If I explicitly name all the arguments, then can list them in any order that I want
@@ -133,6 +189,8 @@ round(digits = 2, x = 3.14159)
 - The most common data structure in R is the *vector*
 - A vector is a series of values that can be either characters or numbers
 - We stitch a series of values together by using the `c()` function
+
+> !!!REVIEW AT BEGINNING OF SECOND WORKSHOP!!!
 
 ```r
 weight_g <- c(50, 60, 65, 82)
@@ -171,12 +229,15 @@ weight_g <- c(30, weight_g)   # add to the beginning of the vector
 weight_g
 ```
 
+> !!!REVIEW AT BEGINNING OF SECOND WORKSHOP!!!
+
 - We reference values within a vector using `[ ]` to indicate index
 
 > Notice the 1 - indexing.
 
 ```r
-animals <- c("mouse", "rat", "dog", "cat")
+animals <- c(animals, "cat")
+animals
 animals[2]
 animals[c(3, 2)]
 ```
@@ -188,8 +249,9 @@ more_animals <- animals[c(1, 2, 3, 2, 1, 4)]
 more_animals
 ```
 
-- We can also index elements by using logical values
-	- A logical value is a value that is either true or false
+- We can also index elements by using *logical values*
+
+> In R, a logical value is a value that is either true or false
 
 ```r
 weight_g <- c(21, 34, 39, 54, 55)
@@ -198,6 +260,8 @@ weight_g[c(TRUE, FALSE, TRUE, TRUE, FALSE)]
 
 - Usually you don't type logical values out by hand, they are usually the output from another statement
 - For example, suppose you want all the weights in `weight_g` that are over 50
+
+> !!!REVIEW AT BEGINNING OF SECOND WORKSHOP!!!
 
 ```r
 weight_g > 50
@@ -208,19 +272,26 @@ weight_g[weight_g > 50]
 	- AND: both statements must be true
 	- OR: one of the statements must be true
 
-- Suppose we want all the weights that are less than 30 grams or greater than 50 grams
+- Suppose we want all the weights that are less than 30 grams **or** greater than 50 grams
 
 ```r
 weight_g[weight_g < 30 | weight_g > 50]
 ```
 
-- Suppose we want all the weights greater than or equal to 30, or equal to 21
+- Suppose we want all the weights greater than or equal to 30, **or** equal to 21
 
 ```r
-weight_g[weight_g >= 30 & weight_g == 21]
+weight_g[weight_g >= 30 | weight_g == 21]
 ```
 
 - `==` test for equality, it does not mean "equal to"
+
+> Challenge: Use `&` to return all the values in `weight_g` that are greater than 30 and less than 50.
+
+```r
+weight_g[weight > 30 & weight_g < 50]
+```
+
 - We can use these kinds of statements to search for whether of not a vector has certain elements
 
 ```r
@@ -233,6 +304,18 @@ animals[animals == "cat" | animals == "rat"]
 ```r
 animals %in% c("rat", "cat", "dog", "duck", "goat")]
 animals[animals %in% c("rat", "cat", "dog", "duck", "goat")]
+```
+
+- To return the index of where an item is found, we can use the `match()` function.
+
+```r
+match("dog", animals)
+```
+
+- To insert an object into the middle of a vector, use the `append()` function.
+
+```r
+append(animals, c("giraffe", "zebra"), after = 3)
 ```
 
 ## Missing Data
@@ -249,6 +332,11 @@ max(heights)
 
 ```r
 mean(heights, na.rm = TRUE
+```
+
+> Challenge: Ignore the missing values and find the maximum value of `heights` using `max()`.
+
+```r
 max(heights, na.rm = TRUE
 ```
 
@@ -256,7 +344,7 @@ max(heights, na.rm = TRUE
 - Begin by downloading the data into your `/data` file
 
 ```r
-dowload.file(""https://ndownloader.figshare.com/files/2292169", "data/portal_data_joined.csv")
+download.file("https://ndownloader.figshare.com/files/2292169", "data/portal_data_joined.csv")
 ```
 
 - Now load the data into your workspace
@@ -319,6 +407,7 @@ summary(surveys)
 - Since data frames have two dimensions, we must account for rows and columns when we reference elements
 
 ```r
+head(surveys)
 surveys[1,1]      # 1st element in the first column
 surveys[1,6]      # 1st element in the 6th column
 surveys[,1]       # 1st column in the data frame
@@ -345,6 +434,8 @@ surveys[,-1]  # Include whole data frame *except* last column
 surveys$species_id
 ```
 
+> !!!END OF FIRST WORKSHOP. REMAINING MATERIAL OPTIONAL BASED ON REMAINING TIME!!!
+
 ## Factors
 - Notice how some of the vectors in the `surveys` data frame are "factors"
 
@@ -353,8 +444,9 @@ str(surveys)
 ```
 
 - Factors are like vectors of string, but they are actually vectors of integers
+- Correspond to the "categorical variable" concept in statistics.
 - R list all the unique strings and assigns each one an integer code (after sorting in alphabetical order)
-- Once created, the factor can only contain this predefined list
+- Once created, the factor can only contain this predefined list. We can change these entries, but we can't add to them.
 - This list of possible values is called the factor's "levels"
 
 ```r
@@ -406,10 +498,14 @@ surveys$plot_type <- factor(surveys$plot_type)
 ## Formatting Dates
 - One big challenge when wrangling data is to format dates correctly
 - To do this we will use an R library called `lubridate`, which is found inside of the `tidyverse` package
+- A library is a collection of functions and code (or other libraries) that extends the base functionalities of R
+- `tidyverse` is an "umbrella package" that contains several sublibraries. These libraries all abide by the tidy data principles layed out in the paper "Tidy Data" by Hadley Wickham.
 
 ```r
 install.packages("tidyverse")
 ```
+
+> Many errors can be addressed by using `install.packages("tidyverse", dependencies = TRUE)
 
 - the `ymd()` function changes the data type to dates
 
