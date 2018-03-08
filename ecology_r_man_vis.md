@@ -324,7 +324,7 @@ ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) + geom_poi
 
 * Notice the syntax, `+ geom_point()`, lends to the idea of adding layers. We can leverage this syntax to save the base plot in a variable and experiment with what different layers look like.
 
-* Each layer has it's own properties that we can change. For example, we can change the transparency of the points to avoid overplotting.
+* Each layer has it's own properties that we can change. For example, we can change the transparency of the points to avoid over plotting.
 
 ```r
 surveys_plot <- ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length))
@@ -344,20 +344,20 @@ surveys_plot + geom_point(alpha = 0.1, color = "blue")
 surveys_plot + geom_point(alpha = 0.1, aes(color = species_id))
 ```
 
-* We can make boxplots using the boxplot geometry.
+* We can make box plots using the box plot geometry.
 
 ```r
 surveys_plot <- ggplot(data = surveys_complete, aes(x = species_id, y = weight))
 surveys_plot + geom_boxplot()
 ```
 
-* We can add points to our boxplot by adding another layer using the `geom_jitter` geometry. This gives us an idea of the number of points and their distributuion.
+* We can add points to our box plot by adding another layer using the `geom_jitter` geometry. This gives us an idea of the number of points and their distribution.
 
 ```r
 surveys_plot + geom_boxplot(alpha = 0) + geom_jitter(alpha = 0.3, color = "tomato")
 ```
 
-* Now our boxplots have been obscured. Let's switch the order of the layers.
+* Now our box plots have been obscured. Let's switch the order of the layers.
 
 ```r
 surveys_plot + geom_jitter(alpha = 0.3, color = "tomato") + geom_boxplot(alpha = 0)
@@ -497,7 +497,7 @@ combo_plot <- grid.arrange(weight_boxplot, count_plot, ncol = 2, widths = c(4,6)
 ggsave("combo_plot.png", combo_plot, width = 10, dpi = 300)
 ```
 
-## Aditional Resources
+## Additional Resources
 [Data Carpentry](http://www.datacarpentry.org/ "Data Carpentry")
 * Today's lesson (plus more) can be found here.
 
