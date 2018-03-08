@@ -22,7 +22,7 @@
 
 ## Installing `tidyverse` and Downloading Data
 
-* If you were not with us last time, or if you have not created a `data` folder, make sure you have a project with a folder called `data`.
+* Start a new project and create a folder called `data`.
 
 * Download the data.
 
@@ -54,6 +54,8 @@ str(surveys)
 
 * We can see each of the column headings, and what type of data each column contains.
 
+* Tibbles recognize string vectors as string vectors instead of factors.
+
 * We can select columns using `select()`.
 
 ```r
@@ -76,7 +78,7 @@ filter(surveys, year == 1995)
 
 ```r
 surveys2 <- filter(surveys, weight < 5)
-surveys_sml <- select(surveys, species_id, sex, weight)
+surveys_sml <- select(surveys2, species_id, sex, weight)
 head(surveys_sml)
 ```
 
@@ -325,6 +327,8 @@ ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) + geom_poi
 * Each layer has it's own properties that we can change. For example, we can change the transparency of the points to avoid overplotting.
 
 ```r
+surveys_plot <- ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length))
+surveys_plot + geom_point()
 surveys_plot + geom_point(alpha = 0.1)
 ```
 
@@ -402,7 +406,7 @@ timelapse + geom_line() + facet_wrap(~ species_id)
 
 * Each column has a `species_id`, and since we didn't specify anything for rows, `facet_wrap()` automatically filled out rows by wrapping once there was no space left.
 
-* Let's add more detail to this plot by designated the difference between male and female counts.
+* Let's add more detail to this plot by designating the difference between male and female counts.
 
 ```r
 yearly_sex_counts <- surveys_complete %>% 
@@ -438,7 +442,7 @@ final_plot + labs(title = "Observed species in time", x = "Year of observation",
 ```r
 final_plot + 
   labs(title = "Observed species in time", x = "Year of observation", y = "Number of species") +
-  theme(text=element_text(size = 16))
+  theme(text = element_text(size = 16))
 ```
 
 * We also have many options for changing the numbers on the axes to make them more readable.
@@ -453,6 +457,7 @@ final_plot +
 # Arranging and Exporting Plots
 * Faceting allows me to split a plot into many different plots, while `gridExtra` allows me to do the opposite, that is, take different plots and put them together in the same figure.
 
+> Just in case: `install.packages("gridExtra")`, and `library("gridExtra")`.
 ```r
 library(gridExtra)
 ```
