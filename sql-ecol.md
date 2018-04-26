@@ -163,4 +163,175 @@ FROM surveys
 WHERE year >= 2000;
 ```
 
+- We can use `AND` and `OR` to create more sophisticated conditional tests.
 
+```sql
+SELECT *
+FROM surveys
+WHERE (year >= 2000) AND (species_id = 'DM');
+```
+
+### Challenge
+- Use `OR` to query for all the entries in the `surveys` table from the dipodomys species (species codes `DM`, `DO`, and `DS`).
+
+```sql
+SELECT *
+FROM surveys
+WHERE (species_id = 'DM') OR (species_id = 'DO') OR (species_id = 'DS');
+```
+
+### Building More Complex Queries
+- Get data for the three dipodomys species from the year 2000 on.
+
+- `IN` saves us from typing a complex `OR` statement.
+
+```sql
+SELECT *
+FROM surveys
+WHERE (year >= 2000) AND (species_id IN ('DM', 'DO', 'DS'));
+```
+
+- Notice how we added layers of complexity as we went. This is a good strategy for complex queries.
+
+- If a query becomes very complex, it can be useful to add comments by using `--`.
+
+```sql
+-- Get post 2000 dat on Dipodomys species
+-- These are in the surveys table and we are interseted in all columns
+SELECT * 
+FROM surveys
+-- Sampling year is in the column `year`, and we want to include 2000
+WHERE (year >= 2000)
+-- Dipodomys species have the `species_id` DM, DO, and DS
+AND (species_id IN ('DM', 'DO', 'DS'));
+```
+
+### Sorting
+- We can sort the results of our queries.
+
+- Let's see how that works with the `species` table.
+
+```sql
+SELECT *
+FROM species;
+```
+
+- Notice how this categorical data gets it's own table which makes managing the measured data more straightforward.
+
+- Let's order by taxa.
+
+```sql
+SELECT *
+FROM species
+ORDER BY taxa ASC;
+```
+
+- We can also use descending order.
+
+```sql
+SELECT *
+FROM species
+ORDER BY taxa DESC;
+```
+
+- We can sort on several fields in the same query.
+
+```sql
+SELECT *
+FROM species
+ORDER BY genus ASC, species ASC;
+```
+
+### Order of Execution
+- SQL has the following order of operations:
+  1. Filter
+  2. Sort
+  3. Display
+
+- We can take advantage of this, filtering and sorting our result based on a field that will not be displayed in the final output.
+
+```sql
+SELECT genus, species
+FROM species
+WHERE taxa = 'Bird'
+ORDER BY species_id ASC;
+```
+
+## SQL Aggregation and Aliases
+### Objectives
+- Apply aggregation to group records in SQL.
+- Filter and order results of a query based on aggregate functions.
+- Employ aliases to assign new names to items in a query.
+- Save a query to make a new table.
+- Apply filters to find missing values in SQL.
+
+### `COUNT` and `GROUP BY`
+- SQL has several aggregate functions (functions that compile all the data together and give a single result).
+
+- We can count the number of records.
+
+```sql
+SELECT COUNT(*)
+FROM surveys;
+```
+
+- We can find out how much all these individuals weigh by using `SUM()`.
+
+```sql
+SELECT COUNT(*), SUM(WEIGHT)
+FROM surveys;
+```
+
+- We these functions accept mathematical arguments. We can output the results in kilograms.
+
+```sql
+SELECT ROUND(SUM(weight)/1000.00, 3)
+FROM surveys;
+```
+
+- Other aggregate functions include `MAX`, `MIN`, and `AVG`.
+
+### Challenge
+- Write a query that returns the total weight, average weight, minimum weight, and maximum weight for all the animals caught over the duration of the survey.
+
+```sql
+SELECT SUM(weight), AVG(weight), MIN(weight), MAX(weight)
+FROM surveys;
+```
+
+- Modify your query so it outputs only the weights between 5 and 10.
+
+```sql
+SELECT SUM(weight), AVG(weight), MIN(weight), MAX(weight)
+FROM surveys
+WHERE (weight > 5) AND (weight < 10);
+```
+
+- We can use `GROUP BY` to count how many individuals were counted in each species.
+
+```sql
+SELECT species_id, COUNT(*)
+FROM surveys
+GROUP BY species_id;
+```
+
+- `GROUP BY` tells SQL what field or fields we want to use to aggregate the data.
+
+- Don't forget we can order the results based on specific criteria.
+
+```sql
+SELECT species_id, COUNT(*)
+FROM surveys
+GROUP BY species_id
+ORDER BY COUNT(species_id);
+```
+
+### Aliases
+- We can use aliases to make results more clear.
+
+```sql
+SELECT MAX(year) AS last_surveyed_year
+FROM surveys;
+```
+
+### `HAVING`
