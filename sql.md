@@ -7,16 +7,16 @@
 
 
 ### Relational Database
-
 A *relational database* is a way to store and manipulate information.
 
-* Databases are arranged as tables.
-* Each table has columns that describe the data (variables)
-* Each table has rows that contain the data (entries/observations)
+* A relational database stores dat in *relations* made up of *records* with *fields*.
+  * Relations are usually represntented as *tables*.
+  * Each record is usually shown as a *row*.
+  * Each field is usually represented as a *column*.
+  * Records usually have a unique identifier, called a *key*, which is stored as one of its fields.
 ---
 
 ### Databases and Spreadsheets
-
 * Spreadsheet
   * Directly edit cells
   * Use formulas based on other cells
