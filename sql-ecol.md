@@ -263,7 +263,6 @@ ORDER BY species_id ASC;
 - Filter and order results of a query based on aggregate functions.
 - Employ aliases to assign new names to items in a query.
 - Save a query to make a new table.
-- Apply filters to find missing values in SQL.
 
 ### `COUNT` and `GROUP BY`
 - SQL has several aggregate functions (functions that compile all the data together and give a single result).
@@ -335,3 +334,94 @@ FROM surveys;
 ```
 
 ### `HAVING`
+- When using aggregate functions, we use the key word `HAVING` instead of `WHERE` to conditionally select results.
+
+```sql
+SELECT species_id, COUNT(species_id)
+FROM surveys
+GROUP BY species_id
+HAVING COUNT(species_id) > 10;
+```
+
+- Don't forget, we can use `AS` to make column headings more readable.
+
+```sql
+SELECT species_id, COUNT(species_id) AS occurrences
+FROM surveys
+GROUP BY species_id
+HAVING occurrences > 10;
+```
+
+### Saving Queries for Future Use
+- You can save queries for later by using views.
+
+- You can think of a view as a its own table that saves a query in the database for later use.
+
+- Suppose we have a project that will only deal with the data collected during the summer (from May to September) of 2000.
+
+```sql
+SELECT *
+FROM surveys
+WHERE year = 2000 AND (month > 4 AND month < 10);
+```
+
+- Now we save this query as a `VIEW`.
+
+```sql
+CREATE VIEW summer_2000 AS
+SELECT *
+FROM surveys
+WHERE year = 2000 AND (month > 4 AND month < 10);
+```
+- Now we can query and work with a subset of the data that we need for our project.
+
+```sql
+SELECT *
+FROM summer_2000
+WHERE species_id == 'PE';
+```
+
+### NULL Values
+- Be very careful with NULL values. Remember that the boolean value of an expression with a NULL value is NULL!
+
+- To get around this, we can use `IS NULL` and `IS NOT NULL`.
+
+## Joins
+### Objectives
+- Employ joins to combine data from two tables.
+- Apply functions to manipulate indivual values.
+- Employ aliases to assign new names to tables and columns in a query.
+
+### Joins
+- We use `JOIN` (comes after `FROM`) to join information between two tables.
+
+- `JOIN` creates a cross-product of the two tables by default which is usually not what we want. `ON` lets us specify which field we want to match between the two tables.
+
+```sql
+SELECT *
+FROM surveys
+JOIN species
+ON surveys.species_id = species.species_id;
+```
+
+- The `.` notation tells SQL which table to select a given field name from.
+
+- If the column you are using to join the two tables has the same name in both tables, you can use the shorthand `USING`.
+
+```sql
+SELECT *
+FROM surveys
+JOIN species
+USING(species_id);
+```
+
+- We can use the `.` notation in the `SELECT` part of the statement as well.
+
+```sql
+SELECT surveys.year, surveys.month, surveys.day, species.genus, species.species
+FROM surveys
+JOIN species
+ON surveys.species_id = species.species_id;
+```
+
+
