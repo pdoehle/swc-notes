@@ -1,5 +1,5 @@
 # SQL for Ecology
-##Preparation Note
+## Preparation Note
 Have a tab open with the table of data types for people to select during the first section.
 
 ## Databases Using SQL
@@ -40,7 +40,7 @@ Have a tab open with the table of data types for people to select during the fir
     - "Browse Data"
   - Each field is usually represented as a *column*.
     - "Browse Data"
-  - Records usually have a unique identifier, called a *key*, which is stored as one of its fields.
+  - Records usually have a unique identifier, called a *primary key*, which is stored as one of its fields.
 - The "Execute SQL" tab is where we type in the queries we will be making.
 - Data in tables have types. All values in a field must have the same type.
   - "Database Structure"
@@ -53,6 +53,8 @@ Have a tab open with the table of data types for people to select during the fir
   - There is not redundant information.
     - Data should be split into different tables with one table per "class" of information.
     - There needs to be a shared identifier between tables, known as a *foreign key*.
+    - *Foreign keys* reference a primary key in another table.
+      - e.g.: Table of hospital patient info. and table with patient names and ID numbers.
 
 ### Creating a New Database
 - Let's create a new database.
@@ -77,8 +79,6 @@ Have a tab open with the table of data types for people to select during the fir
 
 ### Writing my First Query
 - Select only the year column from the surveys tables.
-
-!!!MAKE A SLIDE ABOUT THE ANATOMY OF A SQL QUERY!!!  
 
 ```sql
 SELECT year
@@ -121,7 +121,7 @@ FROM surveys;
 - If we select more than one column, the distinct pairs are returned.
 
 ```sql
-ELECT DISTINCT year, species_id
+SELECT DISTINCT year, species_id
 FROM surveys;
 ```
 
@@ -281,7 +281,7 @@ SELECT COUNT(*), SUM(WEIGHT)
 FROM surveys;
 ```
 
-- We these functions accept mathematical arguments. We can output the results in kilograms.
+- These functions accept mathematical arguments. We can output the results in kilograms.
 
 ```sql
 SELECT ROUND(SUM(weight)/1000.00, 3)
@@ -355,9 +355,9 @@ HAVING occurrences > 10;
 ### Saving Queries for Future Use
 - You can save queries for later by using views.
 
-- You can think of a view as a its own table that saves a query in the database for later use.
+- You can think of a view as its own table that saves a query in the database for later use.
 
-- Suppose we have a project that will only deal with the data collected during the summer (from May to September) of 2000.
+- Suppose we have a project that only deals with the data collected during the summer (from May to September) of 2000.
 
 ```sql
 SELECT *
@@ -455,13 +455,12 @@ download.file(url = "https://ndownloader.figshare.com/files/2292171",
 - This command will not import the database. It just connects to the database file.
 
 ```r
-mammals <- DBI::dbConnect(RSQLite::SQLite(), "~/Desktop/noble_workshop.db")
+mammals <- DBI::dbConnect(RSQLite::SQLite(), "~/Path/to/database")
 ```
 
 - DBI is a package that allows R to connect to any database no matter what the database management system is.
 
 - RSQLite allows R to interface with SQLite databases.
-```
 
 - `src_dbi` gives us information about the database.
 
@@ -469,7 +468,7 @@ mammals <- DBI::dbConnect(RSQLite::SQLite(), "~/Desktop/noble_workshop.db")
 src_dbi(mammals)
 ```
 
-- The `tbl` function can send queries to the database.
+- The `tbl` function sends queries to the database.
 
 ```r
 tbl(mammals, sql("SELECT year, species_id, plot_id FROM surveys"))
@@ -492,6 +491,4 @@ select(year, species_id, plot_id)
   - submits it to the database
   - translates the database's response into an R data frame.
 
-- "Lazy execution" refers to the fact that R won't do anything in the execution until it has to. In this case it pulled in enough data to give us out put and then gives us the message `... with more rows`. It won't pull in the rest of the rows until it actually has to do some computation with them.
-
-
+- "Lazy execution" refers to the fact that R won't do anything in the execution until it has to. In this case it pulled in enough data to give us output and then gives us the message `... with more rows`. It won't pull in the rest of the rows until it actually has to do some computation with them.
