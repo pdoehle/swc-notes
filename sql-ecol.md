@@ -389,8 +389,6 @@ WHERE species_id == 'PE';
 ## Joins
 ### Objectives
 - Employ joins to combine data from two tables.
-- Apply functions to manipulate indivual values.
-- Employ aliases to assign new names to tables and columns in a query.
 
 ### Joins
 - We use `JOIN` (comes after `FROM`) to join information between two tables.
@@ -423,5 +421,77 @@ FROM surveys
 JOIN species
 ON surveys.species_id = species.species_id;
 ```
+
+## SQL Database and R
+### Objectives
+- Access a database from R.
+- Run SQL queries in R using `RSQLite` and `dplyr`.
+
+### Connecting to Databases
+- By default R loads the entire dataset you are working with into your computer's memory. This does not work well if your dataset is too big.
+
+- One of the ways to get around this is to connect R to an external database.
+
+- You can make queries and import the subset of the data that you want to work with.
+
+- We will use the packages `dbplyr` and `RSQLite` to connect R to a database.
+
+```r
+install.packages(c("dbplyr", "RSQLite"))
+library(dplyr)
+library(dbplyr)
+```
+
+- If students don't have the file they can redownload it using the following:
+
+```r
+dir.create("data", showWarnings = FALSE)
+download.file(url = "https://ndownloader.figshare.com/files/2292171",
+              destfile = "data/portal_mammals.sqlite", mode = "wb")
+```
+
+- We begin by connecting to the database.
+
+- This command will not import the database. It just connects to the database file.
+
+```r
+mammals <- DBI::dbConnect(RSQLite::SQLite(), "~/Desktop/noble_workshop.db")
+```
+
+- DBI is a package that allows R to connect to any database no matter what the database management system is.
+
+- RSQLite allows R to interface with SQLite databases.
+```
+
+- `src_dbi` gives us information about the database.
+
+```r
+src_dbi(mammals)
+```
+
+- The `tbl` function can send queries to the database.
+
+```r
+tbl(mammals, sql("SELECT year, species_id, plot_id FROM surveys"))
+```
+
+- One of the strength of bring a database into R is that we can use the `dplyr` syntax and are no longer bound to explicit SQL statements.
+
+```r
+surveys <- tbl(mammals, "surveys")
+surveys %>% 
+select(year, species_id, plot_id)
+```
+
+- `surveys` is behaving like a data frame, but it's not quite a true data frame.
+
+- Notice the output is telling us the results are from a "lazy query" and that it doesn't know how many rows are in the data frame.
+
+- Behind the scenes, `dplyr` does the following:
+  - translates your R code into SQL
+  - submits it to the database
+  - translates the datbase's response into an R data frame.
+
+- "Lazy execution" refers to the fact that R won't do anything in the execution until it has to. In this case it pulled in enough data to give us out put and then gives us the message `... with more rows`. It won't pull in the rest of the rows until it actually has to do some computation with them.
 
 
