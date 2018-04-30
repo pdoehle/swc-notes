@@ -9,7 +9,7 @@ Have a tab open with the table of data types for people to select during the fir
 - Define SQLite data types.
 
 ### Goals
-- Questions: How has the hindfoot length and weight of Dipodomys species changed over time? What is the average weight of each species, per year?
+- Questions: How has the hind-foot length and weight of Dipodomys species changed over time? What is the average weight of each species, per year?
 - To answer these kinds of questions, we often need to do the following types of data operations:
   - Select subsets of the data (rows and columns).
   - Group subsets of data.
@@ -25,16 +25,16 @@ Have a tab open with the table of data types for people to select during the fir
 - Databases improve quality control of data entry.
 
 ### Database Management Systems
-- There are many different datbase management systems for working with relational data.
+- There are many different database management systems for working with relational data.
 - We are going to use SQLite today.
 - SQL is the language used across most database management systems.
 
 ### Relational Database
-- Let's take a look at the pre-existing database `portal_mammals.sqlite`.
+- Let's take a look at the preexisting database `portal_mammals.sqlite`.
 - Click on the "Open Database" button, navigate to and select `portal_mammals.sqlite`
 - A *relational database* is a way to store and manipulate information.
-- A relational database stores dat in *relations* made up of *records* with *fields*.
-  - Relations are usually represntented as *tables*.
+- A relational database stores data in *relations* made up of *records* with *fields*.
+  - Relations are usually representented as *tables*.
     - "Database Structure"
   - Each record is usually shown as a *row*.
     - "Browse Data"
@@ -84,7 +84,7 @@ Have a tab open with the table of data types for people to select during the fir
 SELECT year
 FROM surveys;
 ```
-- SQl is not case sensitive. Capitalizing key words helps with readability.
+- SQL is not case sensitive. Capitalizing key words helps with readability.
 
 - SQL statements don't end until the `;` character. Putting each part of the query on its own line also helps with readability.
 
@@ -428,7 +428,7 @@ ON surveys.species_id = species.species_id;
 - Run SQL queries in R using `RSQLite` and `dplyr`.
 
 ### Connecting to Databases
-- By default R loads the entire dataset you are working with into your computer's memory. This does not work well if your dataset is too big.
+- By default R loads the entire data set you are working with into your computer's memory. This does not work well if your data set is too big.
 
 - One of the ways to get around this is to connect R to an external database.
 
@@ -442,7 +442,7 @@ library(dplyr)
 library(dbplyr)
 ```
 
-- If students don't have the file they can redownload it using the following:
+- If students don't have the file they can re-download it using the following:
 
 ```r
 dir.create("data", showWarnings = FALSE)
@@ -490,7 +490,7 @@ select(year, species_id, plot_id)
 - Behind the scenes, `dplyr` does the following:
   - translates your R code into SQL
   - submits it to the database
-  - translates the datbase's response into an R data frame.
+  - translates the database's response into an R data frame.
 
 - "Lazy execution" refers to the fact that R won't do anything in the execution until it has to. In this case it pulled in enough data to give us out put and then gives us the message `... with more rows`. It won't pull in the rest of the rows until it actually has to do some computation with them.
 
