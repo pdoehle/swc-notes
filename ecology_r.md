@@ -23,7 +23,7 @@
 ### Project directory
 - Good practice to contain the whole project in a single "working directory."
 - *Relative* paths are portable.
-- *Absolute paths are not.
+- *Absolute* paths are not.
 - It's a good idea to have separate folders for raw and clean data, and for scripts.
 - It's a good idea to determine a system you like and keep it consistent across projects.
 
