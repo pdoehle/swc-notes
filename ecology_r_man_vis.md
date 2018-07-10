@@ -171,6 +171,9 @@ surveys %>%
 ```
 
 ## The `summarize()` Function
+
+> Note: start with this section for Session 3. Session 2 can have some of the extra material from the first set of notes and the beginning sections from this set of notes. Have participants download a fresh set of data and start with a new project so everybody is on the same page. Have everybody look at the data so they have a sense of what they are working with. You can use `View()` for this.
+
 * Working with data often requires a "split-apply-combine" workflow. `dplyr` gives us tools for this.
 	* Split the data into groups.
 	* Apply some analysis to each group.
@@ -288,6 +291,8 @@ write_csv(surveys_complete, path = "data_output/surveys_complete.csv")
 
 ## Visualizing Data
 * If you not are not still in the same work space, you need to load `tidyverse` and the data.
+
+> Participants who do not have Tidyverse will need to install it: `install.packages("tidyverse")`.
 
 ```r
 library("tidyverse")
@@ -450,7 +455,7 @@ final_plot +
 ```r
 final_plot + 
   labs(title = "Observed species in time", x = "Year of observation", y = "Number of species") +
-  theme(text=element_text(size = 16), axis.text.x = element_text(color = "grey20", size = 12, 
+  theme(text = element_text(size = 16), axis.text.x = element_text(color = "grey20", size = 12, 
                                                            angle = 90, hjust = 0.5, vjust = 0.5))
 ```
 
@@ -506,6 +511,8 @@ ggsave("combo_plot.png", combo_plot, width = 10, dpi = 300)
 
 [R For Data Science](http://r4ds.had.co.nz/ "R for Data Science")
 * A good book that builds on the concepts discussed today.
+
+[ggplot2 Website](https://ggplot2.tidyverse.org/index.html)
 
 **ggplot2** by Hadley Wickham
 * Very detailed explanation of ggplot2's capabilities.
