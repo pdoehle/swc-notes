@@ -22,7 +22,8 @@
 
 ### Project directory
 - Good practice to contain the whole project in a single "working directory."
-- Relative links are portable.
+- *Relative* paths are portable.
+- *Absolute paths are not.
 - It's a good idea to have separate folders for raw and clean data, and for scripts.
 - It's a good idea to determine a system you like and keep it consistent across projects.
 
@@ -32,6 +33,10 @@
 - To begin with, R will do most math operations by tying it into the window.
 - `>` is the prompt. It means R is ready to accept input.
 - `+` means that R is expecting more input and that your command is not complete yet (this allows for multi-line commands).
+- Two ways of coding in RStudio
+  - scripts (saves work)
+    - keyboard shortcut `Ctrl` + `Enter`
+  - console window
 
 ```r
 3 + 5
@@ -40,6 +45,8 @@
 
 - To do useful things, we need to assign values to objects
 - The assignment operator in R is `<-`
+- You can also use `=`, but historically R has used `<-`
+  - Careful: `=` is used to pass arguments within a function which is different than assignment!
 
 > In many programming languages, data is stored in *variables.* R uses the term *object* due to differences in the way memory is managed in R.
 
@@ -101,9 +108,9 @@ weight_lb
 - The computer will ignore that line and it is for your reference
 - Making comments is a good practice as it provides reference for others (or yourself in six months) as to what is happening in your code
 
-- RStudio has the shortcut `Ctrl`+`Shift`+`C` for commenting multiple lines at once whle scripting.
+- RStudio has the shortcut `Ctrl`+`Shift`+`C` for commenting multiple lines at once when scripting.
 
-> Demonstrate `Ctrl` + `Shift` + `C` on the following lines of code and the script window:
+> Demonstrate `Ctrl` + `Shift` + `C` on the following lines of code:
 
 ```r
 mass <- 47.5
@@ -122,9 +129,9 @@ mass_index <- mass/age
 sqrt(2)
 ```
 
-- The inputs of a function are called *arguments*
-- If the function returns something, it returns a *value*
-- We *call* a function when we want to execute the code in it
+- The inputs of a function are called **arguments**
+- If the function returns something, it returns a **value**
+- We **call** a function when we want to execute the code in it
 
 - Functions are not limited to working with numbers
 - Functions can take as arguments and return almost any object we can create withing the R environment
@@ -331,13 +338,13 @@ max(heights)
 - To fix this, we tell `mean()` and `max()` to ignore the missing data
 
 ```r
-mean(heights, na.rm = TRUE
+mean(heights, na.rm = TRUE)
 ```
 
 > Challenge: Ignore the missing values and find the maximum value of `heights` using `max()`.
 
 ```r
-max(heights, na.rm = TRUE
+max(heights, na.rm = TRUE)
 ```
 
 # Starting with Data
