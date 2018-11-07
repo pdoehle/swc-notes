@@ -219,3 +219,126 @@ print('tripledata:')
 print(tripledata[:3, 36:])
 ```
 
+- NumPy also gives us standard linear algebra operations, but that won't be the focus of today.
+
+```python
+numpy.multiply(small, small)
+```
+
+- We can do more complex things with our data, like finding the average inflammation for all patients on all days.
+
+```python
+print(numpy.mean(data))
+```
+
+- `mean()` takes an array as input. There are many functions that also do these kind of array operations.
+
+```python
+maxval = numpy.max(data)
+minval = numpy.min(data)
+stdval = numpy.std(data)
+
+print('maximum inflammation:', maxval)
+print('minimum inflammation:', minval)
+print('standard deviation', stdval)
+```
+- When we do statistical analysis, we're usually more interested in questions like "What is the maximum inflammation for a single patient?"
+
+```python
+patient_0 = data[0, :]
+print('maximum inflammation for patent 0:', patient_0.max())
+```
+
+- We can condense this by writing it as one line.
+
+```python
+print('maximum inflammation for patient 2:', numpy.max(data[2, :]))
+```
+
+- Most array functions take an axis parameter.
+
+- To go across rows, use axis 0. To go across columns, use axis 1.
+
+```python
+print(numpy.mean(data, axis=0))
+```
+
+- To check ourselves, let's look at the shape of the results.
+
+```python
+print(numpy.mean(data, axis=0).shape)
+```
+
+- This is the average daily inflammation per patient.
+
+- Going across columns, we get the following:
+
+```python
+print(numpy.mean(data, axis=1))
+```
+
+- Average inflammation per day for every patient.
+
+## Repeating Actions with Loops
+- Advantage of loops: automation.
+
+- Suppose we want to print each letter in a word.
+
+- One approach:
+
+```python
+word = 'lead'
+
+print(word[0])
+print(word[1])
+print(word[2])
+print(word[3])
+```
+
+> What's wrong with this approach?
+
+- Doesn't scale.
+
+- Fragile:
+
+```python
+word = 'tin'
+
+print(word[0])
+print(word[1])
+print(word[2])
+print(word[3])
+```
+
+- A better approach is to use a `for` loop.
+
+``python
+word = 'oxygen'
+for char in word:
+    print(char)
+```
+
+- Explain the anatomy of a `for` loop.
+
+- Discuss indenting conventions in Python.
+
+- You can call the loop variable anything you want, but you shouldn't.
+
+> What do we expect the results to be for the following code?
+
+```python
+letter = 'z'
+for letter in 'abc':
+    print(letter)
+print('after the loop, letter is', letter)
+```
+
+- A loop variable is used to record the progress of a loop. It still exists after the loop finishes.
+
+- As we use loops more and more, you will find the `len()` function helpful.
+
+```python
+print(len('aeiou'))
+```
+
+
