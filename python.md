@@ -341,4 +341,121 @@ print('after the loop, letter is', letter)
 print(len('aeiou'))
 ```
 
+> Exponentiation is built into Python: `print(5 ** 3)`. Write a loop that calculates the same result as `5 ** 3` using multiplication (and without exponentiation).
+
+- Hint: a good function to use would be `range()`.
+
+```python
+for i in range(3):
+    print(i)
+```
+
+```python
+for i in range(3, 6):
+    print(i)
+```
+
+```python
+for i in range(3, 21, 3):
+    print(i)
+```
+
+> Now you're ready for the challenge (put up slide).
+
+
+
+```python
+result = 1
+for exponent in range(3):
+    result = result * 5
+print(result)
+```
+
+## Storing Multiple Values in Lists
+- Lists allow us to store multipe values and treat them like one object.
+
+- You make lists in Python by putting items in square brackets.
+
+```python
+odds = [1, 3, 5, 7]
+print('adds are:', odds)
+```
+
+- Similarly to arrays, we can index items in lists.
+
+```python
+print('first and last:', odds[0], odds[-1])
+```
+
+- If we loop over a list, the loop variable is assigned elements one at a time.
+
+```python
+for number in odds:
+    print(number)
+```
+
+- Items in lists can be changed, but characters in strings cannot.
+
+```python
+names = ['Curie', 'Darwing', 'Turing']  # Typo in Darwin's name
+print('names is originally:', names)
+names[1] = 'Darwin'  # Correct the name
+print('final value of names:', names)
+```
+
+```python
+name = 'Darwin'
+name[0] = 'd'
+```
+
+- Anything after `#` is a comment (for human eyes only).
+
+- Comments are important:
+  - Collaborating
+  - Yourself six months later
+
+- Lists can contain any Python object, including lists.
+
+```python
+cupboard = [['pepper', 'zucchini', 'onion'], 
+    ['cabbage', 'lettuce', 'garlic'],
+    ['apple', 'pear', 'banana']]
+```
+
+> Can you print out the first list?
+
+```python
+print(cupboard[0])
+```
+
+> Can you print out just `'pepper'`?
+
+```python
+print(cupboard[0][0])
+```
+
+- Lists can contain different data types.
+
+```python
+sample_ages = [10, 12.5, 'Unkown']
+print(sample_ages)
+```
+
+- Python gives us many functions for changing the contents of lists.
+
+```python
+odds.append(11)
+print('odds after adding a value:', odds)
+```
+
+```python
+del odds[0]
+print('odds after removing the first element:', odds)
+```
+
+```python
+odds.reverse()
+print('odds after reversing:', odds)
+```
+
 
