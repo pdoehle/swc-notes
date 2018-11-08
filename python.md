@@ -40,7 +40,7 @@ weight_kg
 - Rules for variable names:
   - Can include letters, digits, and underscores
   - Cannot start with a digit
-  - Case sensative
+  - Case sensitive
 
 ### Data Types
 - Every object in Python has a *data type*.
@@ -65,7 +65,7 @@ weight_kg_text = 'weight in kilograms:'
 - `print()` displays the value in a variable.
 
 - Functions in Python take inputs, do something, and provide an output.
-  - Recipe = code in the funcion that does stuff, ingredients = *arguments/parameters*.
+  - Recipe = code in the function that does stuff, ingredients = *arguments/parameters*.
 - To *call* a function, type the function name and put the inputs in the parenthesis.
 
 ```python
@@ -391,7 +391,7 @@ print(result)
 ## Storing Multiple Values in Lists
 - SLIDE
 
-- Lists allow us to store multipe values and treat them like one object.
+- Lists allow us to store multiple values and treat them like one object.
 
 - You make lists in Python by putting items in square brackets.
 
@@ -489,7 +489,7 @@ print('odds:', odds)
 
 - Since lists can be large and take up lots of memory, Python didn't copy a new list into `primes`. It labeled the same list in memory with two variable names. Changing the underlying list showed up in both variables.
 
-- If we want a new list copied over, we must exlicitly tell Python to create another copy of the list using the `list()` function.
+- If we want a new list copied over, we must explicitly tell Python to create another copy of the list using the `list()` function.
 
 ```python
 odds = [1, 3, 5, 7]
@@ -513,7 +513,7 @@ print(letters)
 ## Making Choices
 - SLIDE
 
-- Often an analysis requires us to make decisions; for exampe, we may want our code to alert us if there happens to be an outlier in our data. Python gives us *conditionals* for just this kind of task.
+- Often an analysis requires us to make decisions; for example, we may want our code to alert us if there happens to be an outlier in our data. Python gives us *conditionals* for just this kind of task.
 
 - We can have Python make a decision using an `if` statement.
 
@@ -528,7 +528,7 @@ print('done')
 
 - SLIDE
 
-- Explain the anotomy of an `if` statement.
+- Explain the anatomy of an `if` statement.
 
 - With `if` and `else`, only one or the other is ever executed.
 
@@ -577,7 +577,7 @@ if (1 < 0) or (-1 < 0):
 
 - In Python we refer to `True` and `False` values as *booleans*. `<` is an example of a boolean operator.
 
-> Conditionals in Python can handle more than just strickly boolean values. Try the following code and explain the rules for whether or not a conditional statement is executed.
+> Conditionals in Python can handle more than just boolean values. Try the following code and explain the rules for whether or not a conditional statement is executed.
 
 ```python
 if '':
@@ -604,7 +604,7 @@ if 1:
   - Can be reused.
     - Our code is easier to write and easier to read.
 
-- Let's define a function that converts fahrenheit to celsius.
+- Let's define a function that converts Fahrenheit to Celsius.
 
 ```python
 def fahr_to_celsius(temp):
@@ -616,14 +616,14 @@ def fahr_to_celsius(temp):
 - If Python didn't do anything, then all is well. This is a function definition. Now let's call our new function.
 
 ```python
-fahr_to_celius(32)
+fahr_to_celsius(32)
 ```
 
 - We can use our function exactly like the built-in Python functions.
 
 ```python
-print('freezing point of water:', fahr_to_celius(32), 'C')
-print('boiling point of water:', fahr_to_celius(212), 'C')
+print('freezing point of water:', fahr_to_celsius(32), 'C')
+print('boiling point of water:', fahr_to_celsius(212), 'C')
 ```
 
 - Let's create another function that turns Celsius into Kelvin.
@@ -635,7 +635,7 @@ def celsius_to_kelvin(temp_c):
 print('freezing point of water in Kelvin:', celsius_to_kelvin(0.))
 ```
 
-- Let's make one last function that converts from fahrenheit to Kelvin. Instead of using the formula, we can *compose* the functions we already have.
+- Let's make one last function that converts from Fahrenheit to Kelvin. Instead of using the formula, we can *compose* the functions we already have.
 
 ```python
 def fahr_to_kelvin(temp_f):
@@ -693,7 +693,7 @@ print('min, mean, and max of offset data are:',
 
 - The minimum inflammation in the original was zero and the mean was 6.14875. A new minimum of -6.14875 seems like our function is working.
 
-- The mean is not zero, but it's within a resaonable amount for roundoff error.
+- The mean is not zero, but it's within a reasonable amount for roundoff error.
 
 - It's likely our function is working.
 
@@ -903,7 +903,7 @@ elec_date,county_name,entity_description,race_number,race_description,race_party
 
 - Let's look at the data for just one of the races.
 
-- We can use `grep` to filter out all the entries relating to State Question 793 concering Optometrists practicing in retail establishments.
+- We can use `grep` to filter out all the entries relating to State Question 793 concerning Optometrists practicing in retail establishments.
 
 ```bash
 $ grep "NO. 793" ok_results_cnty.csv
