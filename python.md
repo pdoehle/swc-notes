@@ -458,4 +458,257 @@ odds.reverse()
 print('odds after reversing:', odds)
 ```
 
+- We have to be careful when modifying lists because of how Python treats lists in memory.
+
+```python
+odds = [1, 3, 5, 7]
+primes = odds
+primes.append(2)
+print('primes:', primes)
+print('odds:', odds)
+```
+
+- Since lists can be large and take up lots of memory, Python didn't copy a new list into `primes`. It labeled the same list in memory with two variable names. Changing the underlying list showed up in both variables.
+
+- If we want a new list copied over, we must exlicitly tell Python to create another copy of the list using the `list()` function.
+
+```python
+odds = [1, 3, 5, 7]
+primes = list(odds)
+primes.append(2)
+print('primes:', primes)
+print('odds:', odds)
+```
+
+> Use a `for` loop to convert the string `hello` into a list of letters. Hint: You can create an empty list like this: `letters = [] `.
+
+```python
+letters = []
+for char in 'hello':
+    letters.append(char)
+print(letters)
+```
+
+## Making Choices
+- Often an analysis requires us to make decisions; for exampe, we may want our code to alert us if there happens to be an outlier in our data. Python gives us *conditionals* for just this kind of task.
+
+- We can have Python make a decision using an `if` statement.
+
+```python
+num = 37
+if num > 100:
+    print('greater')
+else:
+    print('not greater')
+print('done')
+```
+
+- Explain the anotomy of an `if` statement.
+
+- With `if` and `else`, only one or the other is ever executed.
+
+- Go ahead and try the code out with a few different values and see what happens.
+
+- The `else` statement is not required. Python simply moves on with the program if the condition is false.
+
+```python
+num = 53
+print('before conditional...')
+if num > 100:
+    print(num, ' is greater than 100')
+print('...after conditional')
+```
+
+- We can chain several conditionals together using `elif` which stands for "else if."
+
+```python
+num = -3
+
+if num > 0:
+    print(num, 'is positive')
+elif num == 0:
+    print(num, 'is zero')
+else:
+    print(num, 'is negative')
+```
+
+- `==` is used to test equality, while `=` is used for assignment.
+
+- We can make conditionals more complex by using `and` and `or`.
+
+```python
+if (1 > 0) and (-1 > 0):
+    print('both parts are true')
+else:
+    print('at least one part is false')
+```
+
+- `and` requires both conditions to be true while `or` only requires one of the conditions to be true.
+
+```python
+if (1 < 0) or (-1 < 0):
+    print('at least one test is true')
+```
+
+- In Python we refer to `True` and `False` values as *booleans*. `<` is an example of a boolean operator.
+
+> Conditionals in Python can handle more than just strickly boolean values. Try the following code and explain the rules for whether or not a conditional statement is executed.
+
+```python
+if '':
+    print('empty string is true')
+if 'word':
+    print('word is true')
+if []:
+    print('empty list is true')
+if [1, 2, 3]:
+    print('non-empty list is true')
+if 0:
+    print('zero is true')
+if 1:
+    print('one is true')
+```
+
+## Creating Functions
+- Python gives us many functions, but we can also create our own.
+
+- Functions are self-contained pieces of code.
+  - Simplify our work, e.g, `sin()` or `cos()`.
+  - Can be reused.
+    - Our code is easier to write and easier to read.
+
+- Let's define a function that converts fahrenheit to celsius.
+
+```python
+def fahr_to_celsius(temp):
+    return ((temp - 32) * (5/9))
+```
+
+- Discuss the anatomy of a function.
+
+- If Python didn't do anything, then all is well. This is a function definition. Now let's call our new function.
+
+```python
+fahr_to_celius(32)
+```
+
+- We can use our function exactly like the built-in Python functions.
+
+```python
+print('freezing point of water:', fahr_to_celius(32), 'C')
+print('boiling point of water:', fahr_to_celius(212), 'C')
+```
+
+- Let's create another function that turns Celsius into Kelvin.
+
+```python
+def celsius_to_kelvin(temp_c):
+    return temp_c + 273.15
+
+print('freezing point of water in Kelvin:', celsius_to_kelvin(0.))
+```
+
+- Let's make one last function that converts from fahrenheit to Kelvin. Instead of using the formula, we can *compose* the functions we already have.
+
+```python
+def fahr_to_kelvin(temp_f):
+    temp_c = fahr_to_celsius(temp_f)
+    temp_k = celsius_to_kelvin(temp_c)
+    return temp_k
+
+print('boiling point of water in Kelvin:', fahr_to_kelvin(212.0))
+```
+
+- This is an example of how we compose larger programs. Different tasks are broken into smaller functions and the functions are composed together to make programming a difficult task more manageable.
+
+- A good rule of thumb is to not have more than a few dozen lines of code in any given function. Otherwise reading it and creating it become quite difficult.
+
+- This approach also makes collaboration easier as each collaborator can take a subtask and program their function. As long as the outputs are correct for the given inputs, other collaborators can simply use their function without knowing every detail.
+
+### Testing and Documenting
+- Since we don't want other people to worry about all the details in our function, it's important to test our functions to make sure they provide the right output.
+
+- Let's practice this principal with a function we create to offset a dataset so that it's mean value shifts to a user-defined value.
+
+```python
+def offset_mean(data, target_mean_value):
+    return (data - numpy.mean(data)) + target_mean_value
+```
+
+- We can try this on our inflammation data, but we don't know what the results should look like. Let's create an array of zeros and test it on that.
+
+```python
+z = numpy.zeros((2,2))
+print('original z\n', z)
+print('offset mean\n', offset_mean(z, 3))
+```
+
+- This is looking good. Let's test it on our inflammation data.
+
+```python
+data = numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
+print(offset_mean(data, 0))
+```
+
+- The default screen output didn't help much. Let's run some statistical tests to reassure ourselves.
+
+```python
+offset_data = offset_mean(data, 0)
+print('original min, mean, and max are:', 
+      numpy.min(data), 
+      numpy.mean(data), 
+      numpy.max(data))
+print('min, mean, and max of offset data are:', 
+      numpy.min(offset_data), 
+      numpy.mean(offset_data), 
+      numpy.max(offset_data))
+```
+
+- The minimum inflammation in the original was zero and the mean was 6.14875. A new minimum of -6.14875 seems like our function is working.
+
+- The mean is not zero, but it's within a resaonable amount for roundoff error.
+
+- It's likely our function is working.
+
+- It's important to think about a process for testing the results of your function before coding it.
+
+- Let's document our function so others (and ourselves in 6 months) can use it.
+
+- One strategy is to use comments:
+
+```python
+# offset_mean(data, target_mean_value):
+# return a new array containing the original data with its mean offset to match the desired value.
+def offset_mean(data, target_mean_value):
+    return (data - numpy.mean(data)) + target_mean_value
+```
+
+- With functions we have an even better tool for documentation.
+
+```python
+def offset_mean(data, target_mean_value):
+    '''Return a new array containing the original data
+       with its mean offset to match the desired value.
+    Example: offset_mean([1, 2, 3], 0) => [-1, 0, 1]'''
+    return (data - numpy.mean(data)) + target_mean_value
+
+offset_mean?
+```
+
+- `'''` indicates a multi-line comment. You can write as many lines after this marker as you want and Python will ignore them until the next `'''`.
+
+- When you look up a help entry for a function, it looks for a *docstring* at the beginning of the function.
+
+- This allows us to write documentation that can be used by the help functionality in Jupyter Notebook.
+
+### Defining Defaults
+
+- The last piece of functions we need to focus on is parameters.
+
+- Recall from earlier when we read in our data using the NumPy `loadtxt()` function.
+
+```python
+numpy.loadtxt('inflammation-01.csv', delimiter=',')
+```
+
 
