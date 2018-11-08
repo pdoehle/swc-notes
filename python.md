@@ -2,13 +2,14 @@
 
 ## Setup
 - Download [data](http://swcarpentry.github.io/python-novice-inflammation/data/python-novice-inflammation-data.zip).
-- Download [code](http://swcarpentry.github.io/python-novice-inflammation/code/python-novice-inflammation-code.zip)
 - Create a folder on your desktop called `swc-python`.
-- Move the above downloaded folders to `swc-python` and unzip them.
+- Move the above download to `swc-python` and unzip them.
 - Launch Jupyter notebook and navigate to `swc-python/python-novice-inflammation-data/data` folder within the file navigator.
-- Start a new Python 3.0 notebook and give it a conenient name.
+- Start a new Python 3.0 notebook and give it a convenient name.
 
 ## Intro to Jupyter Notebook, iPython, and Python Interpreter
+- SLIDE
+
 - Discuss:
   - Jupyter Notebook
   - Pure Python
@@ -18,6 +19,8 @@
   - Markdown in Jupyter Notebook
 
 ## Analyzing Patient Data
+- SLIDE
+
 - Any Python interpreter can be used as a calculator.
 
 ```python
@@ -53,7 +56,7 @@ weight_kg
 weight_kg = 60.0
 ```
 
-- To create a string, we need to use quotes (why).
+- To create a string, we need to use quotes (Why?).
 
 ```python
 weight_kg_text = 'weight in kilograms:'
@@ -62,7 +65,7 @@ weight_kg_text = 'weight in kilograms:'
 - `print()` displays the value in a variable.
 
 - Functions in Python take inputs, do something, and provide an output.
-  - Recipe = code in the funcion, ingredients = arguments.
+  - Recipe = code in the funcion that does stuff, ingredients = *arguments/parameters*.
 - To *call* a function, type the function name and put the inputs in the parenthesis.
 
 ```python
@@ -95,7 +98,7 @@ print('weight in kilograms is now:', weight_kg)
 ```
 
 ### Loading data into Python
-- One of the great things about both R and Python is the large amount of *libraries* developed by the respective communities.
+- One of the great things about both R and Python is the large number of *libraries* developed by the respective communities.
 
 - A library is a piece of code that extends the base functions of Python.
 
@@ -141,7 +144,7 @@ print(type(data))
 
 - This is a new data type for us.
 
-- An `ndarray` is how NumPy represents an N-deimenstional array.
+- An `ndarray` is how NumPy represents an N-dimensional array.
 
 - For our particular data, the rows are the individual patients and the columns are their arthritis inflammation measurement for each day.
 
@@ -165,9 +168,10 @@ data.shape
 - To pull a single number from the array, we use indexing.
   - Indexing with NumPy is ordered by row, then column.
   - 0-indexing
+  - SLIDE
 
 ```python
-rst value in data:', data[0, 0])
+print('first value in data:', data[0, 0])
 print('middle value in data:', data[30, 20])
 ```
 
@@ -194,7 +198,7 @@ print('small is:')
 print(small)
 ```
 
-> What happens if we take of both numbers from the slice?
+> What happens if we take off both numbers from the slice?
 
 ```python
 small = data[:3, :]
@@ -263,8 +267,10 @@ print('maximum inflammation for patient 2:', numpy.max(data[2, :]))
 ```
 
 - Most array functions take an axis parameter.
+  - SLIDE
 
 - To go across rows, use axis 0. To go across columns, use axis 1.
+  - Count axis starting at 0.
 
 ```python
 print(numpy.mean(data, axis=0))
@@ -287,6 +293,8 @@ print(numpy.mean(data, axis=1))
 - Average inflammation per day for every patient.
 
 ## Repeating Actions with Loops
+- SLIDE
+
 - Advantage of loops: automation.
 
 - Suppose we want to print each letter in a word.
@@ -319,7 +327,7 @@ print(word[3])
 
 - A better approach is to use a `for` loop.
 
-``python
+```python
 word = 'oxygen'
 for char in word:
     print(char)
@@ -348,6 +356,10 @@ print('after the loop, letter is', letter)
 print(len('aeiou'))
 ```
 
+- SLIDE
+
+- SLIDE
+
 > Exponentiation is built into Python: `print(5 ** 3)`. Write a loop that calculates the same result as `5 ** 3` using multiplication (and without exponentiation).
 
 - Hint: a good function to use would be `range()`.
@@ -367,9 +379,7 @@ for i in range(3, 21, 3):
     print(i)
 ```
 
-> Now you're ready for the challenge (put up slide).
-
-
+> Now you're ready for the challenge (SLIDE).
 
 ```python
 result = 1
@@ -379,6 +389,8 @@ print(result)
 ```
 
 ## Storing Multiple Values in Lists
+- SLIDE
+
 - Lists allow us to store multipe values and treat them like one object.
 
 - You make lists in Python by putting items in square brackets.
@@ -487,6 +499,8 @@ print('primes:', primes)
 print('odds:', odds)
 ```
 
+- SLIDE
+
 > Use a `for` loop to convert the string `hello` into a list of letters. Hint: You can create an empty list like this: `letters = [] `.
 
 ```python
@@ -497,6 +511,8 @@ print(letters)
 ```
 
 ## Making Choices
+- SLIDE
+
 - Often an analysis requires us to make decisions; for exampe, we may want our code to alert us if there happens to be an outlier in our data. Python gives us *conditionals* for just this kind of task.
 
 - We can have Python make a decision using an `if` statement.
@@ -509,6 +525,8 @@ else:
     print('not greater')
 print('done')
 ```
+
+- SLIDE
 
 - Explain the anotomy of an `if` statement.
 
@@ -577,6 +595,8 @@ if 1:
 ```
 
 ## Creating Functions
+- SLIDE
+
 - Python gives us many functions, but we can also create our own.
 
 - Functions are self-contained pieces of code.
@@ -626,9 +646,9 @@ def fahr_to_kelvin(temp_f):
 print('boiling point of water in Kelvin:', fahr_to_kelvin(212.0))
 ```
 
-- This is an example of how we compose larger programs. Different tasks are broken into smaller functions and the functions are composed together to make programming a difficult task more manageable.
+- This is an example of how we compose larger programs. Different tasks are broken into smaller functions and the functions are composed together to make difficult tasks more manageable.
 
-- A good rule of thumb is to not have more than a few dozen lines of code in any given function. Otherwise reading it and creating it become quite difficult.
+- A good rule of thumb is to not have more than a few dozen lines of code in any given function. Otherwise reading it and creating it becomes quite difficult.
 
 - This approach also makes collaboration easier as each collaborator can take a subtask and program their function. As long as the outputs are correct for the given inputs, other collaborators can simply use their function without knowing every detail.
 
@@ -808,6 +828,8 @@ numpy.loadtxt?
 
 - We want `','` to be assigned to `delimiter`, so we still have to label that parameter.
 
+- SLIDE
+
 > What does the following code return, and why?
 
 ```python
@@ -831,7 +853,7 @@ print(k)
   - The original value of `k` didn't change after running the function.
     - Function variable have a *local scope*, as opposed to variables in a loop.
 
-## Command-Line Programs
+## Bonus: Using the Unix shell and Python Together
 
 - Open up Unix command line and `cd` to the directory with the results CSV file.
 
@@ -848,7 +870,7 @@ print(k)
 
 - To demo this idea, I have a python script that creates bar charts. This will be my analysis script.
 
-- I also have a CSV file with all the results.
+- I also have a CSV file with election results.
 
 ```bash
 $ ls
@@ -904,7 +926,7 @@ $ grep "NO. 793" ok_results_cnty.csv | grep "PAYNE"
 11/06/2018,PAYNE,"FEDERAL, STATE AND COUNTY",30002,STATE QUESTION NO. 793 INITIATIVE PETITION NO. 415,,31,31,2,AGAINST THE PROPOSAL - NO,,451,1415,9742,11608
 ```
 
-- Now, let's get rid of unnecessary fields. We only care about how many voted "yes" and how many voted "no", and the county name. This information is capture in columns 2, 9, and 14.
+- Now, let's get rid of unnecessary fields. We only care about how many voted "yes" and how many voted "no", and the county name. This information is captured in columns 2, 11, and 16.
 
 ```bash
 $ grep "NO. 793" ok_results_cnty.csv | grep "PAYNE" | cut -d, -f2,11,16
@@ -935,4 +957,4 @@ beaver_county.csv  ok_results_cnty.csv  pawnee_county.csv  payne_county.csv
 
 - If you have a Mac or Linux machine, bash is integrated into the system as a deep level. You could create a bash loop and produce all of plots in one go, calling your script from within a bash terminal.
 
-- With Windows, you can do take this approach for many problems, but if you plotting, it doesn't work as well. You would likely want to create a loop inside your Python script instead.
+- With Windows, you can do take this approach for many problems, but if you are plotting, it doesn't work as well. You would likely want to create a loop inside your Python script instead.
