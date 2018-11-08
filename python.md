@@ -9,6 +9,13 @@
 - Start a new Python 3.0 notebook and give it a conenient name.
 
 ## Intro to Jupyter Notebook, iPython, and Python Interpreter
+- Discuss:
+  - Jupyter Notebook
+  - Pure Python
+  - iPython
+  - Command Mode versus Editing Mode
+  - Getting help in Command Mode
+  - Markdown in Jupyter Notebook
 
 ## Analyzing Patient Data
 - Any Python interpreter can be used as a calculator.
@@ -708,7 +715,224 @@ offset_mean?
 - Recall from earlier when we read in our data using the NumPy `loadtxt()` function.
 
 ```python
+numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
+```
+
+- In the functions we defined, we passed parameters directly without labeling them like this.
+
+- Let's try that here.
+
+```python
 numpy.loadtxt('inflammation-01.csv', delimiter=',')
 ```
 
+- And now without `delimiter`...
 
+```python
+numpy.loadtxt('inflammation-01.csv', ',')
+```
+
+- What's going on? Let's explore this with our `offset_mean()` function.
+
+```python
+def offset_mean(data, target_mean_value=0.0):
+    '''Return a new array containing the original data with its mean offset to match the 
+       desired value (0 by default).
+    Example: offset_mean([1, 2, 3], 0) => [-1, 0, 1]'''
+    return (data - numpy.mean(data)) + target_mean_value
+```
+
+- This time instead of just listing `target_mean_value` as a parameter, we've given this parameter a *default value*.
+
+- If the user of the function doesn't specify a `target_mean_value`, the function will automatically make that value 0.0.
+
+- When we use two arguments as before:
+
+```python
+test_data = numpy.zeros((2, 2))
+print(offset_mean(test_data, 3))
+```
+
+- Now let's call it with only one parameter:
+
+```python
+more_data = 5 + numpy.zeros((2, 2))
+print('data before mean offset:')
+print(more_data)
+print('offset data:')
+print(offset_mean(more_data))
+```
+
+- We can create functions that always behave one way for the default case, but give the user flexibility to change things if another case arises.
+
+- We can pass arguments to a function in any order we want if they are labeled; otherwise, they are matched moving left to right.
+
+```python
+def display(a=1, b=2, c=3):
+    print('a:', a, 'b:', b, 'c:', c)
+    
+print('no parameters:')
+display()
+print('one parameter:')
+display(55)
+print('two parameters:')
+display(55, 66)
+```
+
+- If I want to change the order, I need to label the parameters.
+
+```python
+print('only setting the value of c')
+display(c=77)
+print('changing the order')
+display(b=66, a=55)
+```
+
+- Back to the original question: What was going on with our NumPy `loadtxt()` function?
+
+```python
+numpy.loadtxt?
+```
+
+- There's a lot of information, and each parameter has it's own entry in the documentation.
+
+- We can find our answer in the first line.
+
+- `fname` is the first parameter. It doesn't have a default value.
+
+- The rest of the parameters have a default value.
+
+- The second parameter is `dtype`.
+
+- When we called `numpy.loadtxt('inflammation-01.csv', ',')`, `inflammation-01` assigned to `fname` and `','` was assigned to `dtype`, but `','` isn't a recognized data type for this function.
+
+- We want `','` to be assigned to `delimiter`, so we still have to label that parameter.
+
+> What does the following code return, and why?
+
+```python
+f = 0
+k = 0
+
+def f2k(f):
+    k = ((f-32)*(5.0/9.0)) + 273.15
+    return k
+
+f2k(8)
+f2k(41)
+f2k(32)
+
+print(k)
+```
+
+- Two observations:
+  - `f2k()` did not print anything when it ran.
+    - Difference between `return()` and `print()`.
+  - The original value of `k` didn't change after running the function.
+    - Function variable have a *local scope*, as opposed to variables in a loop.
+
+## Command-Line Programs
+
+- Open up Unix command line and `cd` to the directory with the results CSV file.
+
+- For our last section, I want to demo using the Unix Shell and Python together using data from the Oklahoma State election on November 6, 2018. This is county-level results for the election.
+
+- I got this data from the [Oklahoma Election Board](https://www.ok.gov/elections/) website.
+
+- You don't need to type for this part, I will show a quick demo.
+
+- Bash is great for quick data exploration and piping together multi-step workflows.
+
+- Python has a huge number of libraries and is often handy for in-depth analysis specific to your discipline.
+  - Chances are, there's a library for that!
+
+- To demo this idea, I have a python script that creates bar charts. This will be my analysis script.
+
+- I also have a CSV file with all the results.
+
+```bash
+$ ls
+ok_results_cnty.csv
+```
+
+- This file has a lot of entries, so let take a peek at the first line, so we know the column headers.
+
+```bash
+$ head -1 ok_results_cnty.csv
+
+elec_date,county_name,entity_description,race_number,race_description,race_party,tot_race_prec,race_prec_reporting,cand_number,cand_name,cand_party,cand_absmail_votes,cand_early_votes,cand_elecday_votes,cand_tot_votes
+```
+
+- Now the first few lines:
+
+```bash
+$ head ok_results_cnty.csv
+elec_date,county_name,entity_description,race_number,race_description,race_party,tot_race_prec,race_prec_reporting,cand_number,cand_name,cand_party,cand_absmail_votes,cand_early_votes,cand_elecday_votes,cand_tot_votes
+11/06/2018,ADAIR,"FEDERAL, STATE AND COUNTY",10001,FOR GOVERNOR,,17,17,1,CHRIS POWELL,LIB,6,22,211,239
+11/06/2018,ADAIR,"FEDERAL, STATE AND COUNTY",10001,FOR GOVERNOR,,17,17,2,KEVIN STITT,REP,68,181,2928,3177
+11/06/2018,ADAIR,"FEDERAL, STATE AND COUNTY",10001,FOR GOVERNOR,,17,17,3,DREW EDMONDSON,DEM,54,144,1541,1739
+11/06/2018,ADAIR,"FEDERAL, STATE AND COUNTY",10002,FOR LIEUTENANT GOVERNOR,,17,17,1,MATT PINNELL,REP,77,199,3183,3459
+11/06/2018,ADAIR,"FEDERAL, STATE AND COUNTY",10002,FOR LIEUTENANT GOVERNOR,,17,17,2,ANASTASIA A. PITTMAN,DEM,47,133,1269,1449
+11/06/2018,ADAIR,"FEDERAL, STATE AND COUNTY",10002,FOR LIEUTENANT GOVERNOR,,17,17,3,IVAN HOLMES,IND,5,13,191,209
+11/06/2018,ADAIR,"FEDERAL, STATE AND COUNTY",10003,FOR STATE AUDITOR AND INSPECTOR,,17,17,1,JOHN YEUTTER,LIB,27,90,1013,1130
+11/06/2018,ADAIR,"FEDERAL, STATE AND COUNTY",10003,FOR STATE AUDITOR AND INSPECTOR,,17,17,2,CINDY BYRD,REP,91,228,3380,3699
+11/06/2018,ADAIR,"FEDERAL, STATE AND COUNTY",10004,FOR ATTORNEY GENERAL,,17,17,1,MIKE HUNTER,REP,83,211,3353,3647
+```
+
+- Let's look at the data for just one of the races.
+
+- We can use `grep` to filter out all the entries relating to State Question 793 concering Optometrists practicing in retail establishments.
+
+```bash
+$ grep "NO. 793" ok_results_cnty.csv
+11/06/2018,ADAIR,"FEDERAL, STATE AND COUNTY",30002,STATE QUESTION NO. 793 INITIATIVE PETITION NO. 415,,17,17,1,FOR THE PROPOSAL - YES,,73,178,2328,2579
+11/06/2018,ADAIR,"FEDERAL, STATE AND COUNTY",30002,STATE QUESTION NO. 793 INITIATIVE PETITION NO. 415,,17,17,2,AGAINST THE PROPOSAL - NO,,54,159,2234,2447
+11/06/2018,ALFALFA,"FEDERAL, STATE AND COUNTY",30002,STATE QUESTION NO. 793 INITIATIVE PETITION NO. 415,,8,8,1,FOR THE PROPOSAL - YES,,25,44,572,641
+11/06/2018,ALFALFA,"FEDERAL, STATE AND COUNTY",30002,STATE QUESTION NO. 793 INITIATIVE PETITION NO. 415,,8,8,2,AGAINST THE PROPOSAL - NO,,33,101,1008,1142
+11/06/2018,ATOKA,"FEDERAL, STATE AND COUNTY",30002,STATE QUESTION NO. 793 INITIATIVE PETITION NO. 415,,17,17,1,FOR THE PROPOSAL - YES,,74,426,1784,2284
+11/06/2018,ATOKA,"FEDERAL, STATE AND COUNTY",30002,STATE QUESTION NO. 793 INITIATIVE PETITION NO. 415,,17,17,2,AGAINST THE PROPOSAL - NO,,29,276,1330,1635
+11/06/2018,BEAVER,"FEDERAL, STATE AND COUNTY",30002,STATE QUESTION NO. 793 INITIATIVE PETITION NO. 415,,7,7,1,FOR THE PROPOSAL - YES,,30,57,460,547
+```
+
+- I would like to compare "Yes" and "No" votes for three counties: Payne, Beaver, and Pawnee.
+
+- Let's start with Payne.
+
+```bash
+$ grep "NO. 793" ok_results_cnty.csv | grep "PAYNE"
+11/06/2018,PAYNE,"FEDERAL, STATE AND COUNTY",30002,STATE QUESTION NO. 793 INITIATIVE PETITION NO. 415,,31,31,1,FOR THE PROPOSAL - YES,,485,1457,8948,10890
+11/06/2018,PAYNE,"FEDERAL, STATE AND COUNTY",30002,STATE QUESTION NO. 793 INITIATIVE PETITION NO. 415,,31,31,2,AGAINST THE PROPOSAL - NO,,451,1415,9742,11608
+```
+
+- Now, let's get rid of unnecessary fields. We only care about how many voted "yes" and how many voted "no", and the county name. This information is capture in columns 2, 9, and 14.
+
+```bash
+$ grep "NO. 793" ok_results_cnty.csv | grep "PAYNE" | cut -d, -f2,11,16
+PAYNE,FOR THE PROPOSAL - YES,10890
+PAYNE,AGAINST THE PROPOSAL - NO,11608
+```
+
+- Let's put that info in a file.
+
+```bash
+$ grep "NO. 793" ok_results_cnty.csv | grep "PAYNE" | cut -d, -f2,11,16 > payne_county.csv
+$ cat payne.csv
+PAYNE,FOR THE PROPOSAL - YES,10890
+PAYNE,AGAINST THE PROPOSAL - NO,11608
+```
+
+- We can use bash's history to quickly generate the files for the other two counties.
+
+```bash
+$ grep "NO. 793" ok_results_cnty.csv | grep "BEAVER" | cut -d, -f2,11,16 > beaver_county.csv
+$ grep "NO. 793" ok_results_cnty.csv | grep "PAWNEE" | cut -d, -f2,11,16 > pawnee_county.csv
+$ ls
+beaver_county.csv  ok_results_cnty.csv  pawnee_county.csv  payne_county.csv
+```
+- I can now use my analysis script to plot these files.
+
+- Open up Jupyter Notebook file and plot the counties by changing the names.
+
+- If you have a Mac or Linux machine, bash is integrated into the system as a deep level. You could create a bash loop and produce all of plots in one go, calling your script from within a bash terminal.
+
+- With Windows, you can do take this approach for many problems, but if you plotting, it doesn't work as well. You would likely want to create a loop inside your Python script instead.
