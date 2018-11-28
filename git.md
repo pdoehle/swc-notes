@@ -321,6 +321,15 @@ Date:   Mon Jan 8 15:36:37 2018 -0600
 - Let's make an "ill-considered change."
 
 ```bash
+$ nano mars.txt
+$ cat mars.txt
+Cold and dry, but everything is my favorite color.
+The two moons may be a problem for Wolfman.
+But the Mummy will appreciate the lack of humidity
+An ill-considered change.
+```
+
+```bash
 $ git diff HEAD mars.txt
 diff --git a/mars.txt b/mars.txt
 index 669e484..0a33bf7 100644
