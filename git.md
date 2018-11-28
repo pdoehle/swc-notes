@@ -1,13 +1,21 @@
 # Version Control with Git
 
 ## Automated Version Control
+- SLIDE
+
+- SLIDE
+
 - How many of you can relate to the poor graduate student in the comic?
 
 - Git is a command-line based version control system.
 
 - Version control systems you may already be familiar with: Microsoft Word's Track Changes, Google Docs' version history, or LibreOffice's Recording and Displaying Changes.
 
+- SLIDE
+
 - Version control systems start with a base document and then record each change separately, like the recording of a tape the can be rewound.
+
+- SLIDE
 
 - If you think of the changes as separate from the document itself, you can have multiple versions of the same document.
 
@@ -20,6 +28,9 @@
 - The complete history of commits for a particular project (along with their metadata) make up a *repository*.
 
 ## Setting Up Git
+
+- SLIDE
+
 - Go to [GitHub's](https://github.com/) webpage and setup an account if you don't already have one.
 
 - Git commands are written as `git verb` (and optional flags)
@@ -40,6 +51,8 @@ $ git config --list
 ```
 
 ## Creating a Repository
+- SLIDE
+
 - Create a directory and initialize a `git` project.
 
 ```bash
@@ -72,6 +85,8 @@ nothing to commit (create/copy files and use "git add" to track)
 ```
 
 ## Tracking Changes
+- SLIDE
+
 - Let's create a file for our project.
 
 ```bash
@@ -222,19 +237,23 @@ $ git commit -m "Add concerns about effects of Mars' moons on Wolfman"
  1 file changed, 1 insertion(+)
 ```
 
+- SLIDE
+
 - Notice `git` has a two-step process of staging and then committing.
 
-- We can think of this like a family portrait.
+- We can think of this like a wedding picture.
 	- staging is getting everybody in the frame
 	- committing is taking the photo
 
 - Why the two-step process? Why not just commit?
 
+- SLIDE
+
 - Staging allows us to commit to small pieces of our project at one time instead of large portions
 
 - If you are working on a paper, you can commit to just the introduction if the conclusion is not ready yet
 
-- Let's watch our changes move through the progression ...
+- Let's see how this affects the Git workflow ...
 
 - Make another change to `mars.txt`
 
@@ -316,6 +335,8 @@ Date:   Mon Jan 8 15:36:37 2018 -0600
 - Most recent commits are listed first.
 
 ## Exploring History
+- SLIDE
+
 - In order to take advantage of version control, we need to be able to navigate back to previous versions.
 
 - Let's make an "ill-considered change."
@@ -469,6 +490,8 @@ nothing to commit, working directory clean
 - Remember to use the commit identifier for the commit *before* the change we are trying to undo.
 
 ## Ignoring Things
+- SLIDE
+
 - Sometimes there are files that we want Git to ignore.
 
 - Sometimes we don't want to share files with collaborators.
@@ -553,7 +576,9 @@ Ignored files:
 nothing to commit, working directory clean
 ```
 
-## Remotes in GitHub
+## Remotes and Collaborating
+- SLIDE
+
 - Version control becomes particularly powerful when we use it in collaboration with others.
 
 - Hosting services like [GitHub](https://github.com/), [BitBucket](https://bitbucket.org/), or [GitLab](https://gitlab.com/) allow us to host our Git repos in a central repository and share them with collaborators.
