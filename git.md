@@ -224,7 +224,7 @@ index 077071c..42d92e3 100644
 +The two moons may be a problem for Wolfman.
 ```
 
-- Shows the difference between our project as it stands and the files being tracked.
+- Shows the difference between what's staged and the current state of our directory.
 
 - Line 1: output similar to the Unix `diff` command.
 
