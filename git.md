@@ -154,6 +154,8 @@ $ git commit -m "Start notes on Mars as a base"
 
 - Git "takes a snapshot" of our project and saves a copy of it in `.git`.
 
+- SLIDE
+
 - Good commit messages ...
 	- start with a brief (<50 characters) comment,
 	- a longer description can follow separated by a blank line.
