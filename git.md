@@ -593,7 +593,7 @@ nothing to commit, working directory clean
 
 - Let's collaborate on a project together.
 
-- Go to my GitHub page and click on the countries repo.
+- Go to HPCC's GitHub page and click on the countries repo.
 
 - Any repo that is public can be forked and you can work on your own version.
 
@@ -693,7 +693,7 @@ To https://github.com/OSU-Carpentry/countries.git
 
 - Once all the collaborative changes have been accepted, our local copies now need to reflect all the updates.
 
-- Copy the url for my original repo.
+- Copy the url for HPCC's original repo.
 
 ```bash
 $ git remote add upstream https://github.com/nelle/countries
