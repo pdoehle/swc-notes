@@ -184,6 +184,8 @@ Date:   Mon Jan 8 15:36:37 2018 -0600
     Start notes on Mars as a base
 ```
 
+- Explain the anatomy of a log entry.
+
 - Let's make a change to our file.
 
 ```bash
