@@ -255,7 +255,7 @@ $ git commit -m "Add concerns about effects of Mars' moons on Wolfman"
 
 - SLIDE
 
-- Staging allows us to commit to small pieces of our project at one time instead of large portions
+- Staging allows us to commit to small pieces of our project at one time instead of large, wholesale commits
 
 - If you are working on a paper, you can commit to just the introduction if the conclusion is not ready yet
 
