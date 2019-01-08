@@ -33,6 +33,8 @@
 
 - Go to [GitHub's](https://github.com/) webpage and setup an account if you don't already have one.
 
+- Explain the difference between Git and GitHub
+
 - Git commands are written as `git verb` (and optional flags)
 
 - Suggested settings for this lesson:
