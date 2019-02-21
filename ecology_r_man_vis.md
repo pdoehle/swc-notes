@@ -502,16 +502,16 @@ combo_plot <- grid.arrange(weight_boxplot, count_plot, ncol = 2, widths = c(4,6)
 ggsave("combo_plot.png", combo_plot, width = 10, dpi = 300)
 ```
 
-## SQL Datbase and R
+## SQL Database and R
 - When a dataset grows to large to fit into working memory, it may be time to use a database.
 
 - R can connect to a database and retrieve only the parts you need for analysis.
 
-- R can connect to a publically available database, so you don't need to download the whole thing.
+- R can connect to a publicly available database, so you don't need to download the whole thing.
 
 - For this section, we will use the libraries `dplyr` and `dbplyr`.
 
-- We have already been using `dplyr` to maninpulate our data. It has excellent tools for querying databases and manipulating the data, but it cannot modify a database. We use other libraries for that.
+- We have already been using `dplyr` to manipulate our data. It has excellent tools for querying databases and manipulating the data, but it cannot modify a database. We use other libraries for that.
 
 - Make sure packages are installed and start with a fresh copy of the data.
 
@@ -525,20 +525,20 @@ download.file(url = "https://ndownloader.figshare.com/files/2292171",
               destfile = "data/portal_mammals.sqlite", mode = "wb")
 ```
 
-- Load libraries into the workspace.
+- Load libraries into the work space.
 
 ```r
 library(dplyr)
 library(dbplyr)
 ```
 
-- The following command allows makes a connection with our database and translates `dbplyr` and `dplyr` commands into commands recognised by the database.
+- The following command allows makes a connection with our database and translates `dbplyr` and `dplyr` commands into commands recognized by the database.
 
 ```r
 mammals <- DBI::dbConnect(RSQLite::SQLite(), "data/portal_mammals.sqlite")
 ```
 
-- We did not load any data into our session. We simply openned a connection to the database.
+- We did not load any data into our session. We simply opened a connection to the database.
 
 - Let's take a look.
 
