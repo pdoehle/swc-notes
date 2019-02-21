@@ -641,7 +641,8 @@ my_db
 [R For Data Science](http://r4ds.had.co.nz/ "R for Data Science")
 * A good book that builds on the concepts discussed today.
 
-[ggplot2 Website](https://ggplot2.tidyverse.org/index.html)
+[Tidyverse Website](https://www.tidyverse.org/ "Tidyverse")
+* An overview of the Tidyverse, complete with cheat sheets.
 
 **ggplot2** by Hadley Wickham
 * Very detailed explanation of ggplot2's capabilities.
