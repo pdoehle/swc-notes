@@ -502,6 +502,135 @@ combo_plot <- grid.arrange(weight_boxplot, count_plot, ncol = 2, widths = c(4,6)
 ggsave("combo_plot.png", combo_plot, width = 10, dpi = 300)
 ```
 
+## SQL Datbase and R
+- When a dataset grows to large to fit into working memory, it may be time to use a database.
+
+- R can connect to a database and retrieve only the parts you need for analysis.
+
+- R can connect to a publically available database, so you don't need to download the whole thing.
+
+- For this section, we will use the libraries `dplyr` and `dbplyr`.
+
+- We have already been using `dplyr` to maninpulate our data. It has excellent tools for querying databases and manipulating the data, but it cannot modify a database. We use other libraries for that.
+
+- Make sure packages are installed and start with a fresh copy of the data.
+
+```r
+install.packages(c("dbplyr", "RSQLite"))
+```
+
+```r
+dir.create("data", showWarnings = FALSE)
+download.file(url = "https://ndownloader.figshare.com/files/2292171",
+              destfile = "data/portal_mammals.sqlite", mode = "wb")
+```
+
+- Load libraries into the workspace.
+
+```r
+library(dplyr)
+library(dbplyr)
+```
+
+- The following command allows makes a connection with our database and translates `dbplyr` and `dplyr` commands into commands recognised by the database.
+
+```r
+mammals <- DBI::dbConnect(RSQLite::SQLite(), "data/portal_mammals.sqlite")
+```
+
+- We did not load any data into our session. We simply openned a connection to the database.
+
+- Let's take a look.
+
+```r
+src_dbi(mammals)
+```
+
+- Our database has three tables: `plots`, `species`, and `surveys`.
+
+- The `tbl()` function in `dplyr` allows us to connect to tables in our database and make queries.
+
+```r
+tbl(mammals, sql("SELECT year, species_id, plot_id FROM surveys"))
+```
+
+- Notice that R doesn't know how many rows when it returns the query (explain lazy evaluation).
+
+- One of the strengths of using `dplyr` is we can use standard `dplyr` syntax and avoid SQL queries.
+
+- Begin by creating a table object and saving it to a variable. Then use standard `dplyr` commands.
+
+```r
+surveys <- tbl(mammals, "surveys")
+surveys %>%
+    select(year, species_id, plot_id)
+```
+
+- R treats `surveys` like it's a data frame. We can use any functions that we would normally use with a data frame.
+
+```r
+head(surveys, n = 10)
+```
+
+- Since R uses lazy evaluation, there are a few functions that don't work like normal, so watch out!
+
+```r
+head(surveys, n = 10)
+```
+
+- R tries to wait until the last possible moment to send as much information to the database as it can with one query. When we are ready to tell R to stop being lazy, we use `collect()`.
+
+```r
+data_subset <- surveys %>% 
+  filter(weight < 5) %>% 
+  select(species_id, sex, weight) %>% 
+  collect()
+
+data_subset
+```
+
+- This allows me to build up a complex query without straining the system on a large dataset until I know my query works.
+
+- Using standard `dplyr` syntax allows you to test your code on a small dataset locally and then use the same code over a database connection for a large dataset once you know it works. It's also flexible enough to let you use SQL commands directly.
+
+- We can create a new database from within R.
+
+```r
+download.file("https://ndownloader.figshare.com/files/3299483",
+              "data/species.csv")
+download.file("https://ndownloader.figshare.com/files/10717177",
+              "data/surveys.csv")
+download.file("https://ndownloader.figshare.com/files/3299474",
+              "data/plots.csv")
+library(tidyverse)
+species <- read_csv("data/species.csv")
+```
+
+```r
+surveys <- read_csv("data/surveys.csv")
+plots <- read_csv("data/plots.csv")
+```
+
+- `src_sqlite` will connect to an existing database or create a new one if we set `create = TRUE`.
+
+```r
+my_db <- src_sqlite("data_output/portal-database-output.sqlite", create = TRUE)
+```
+
+- We have a new, empty database.
+
+```r
+my_db
+```
+
+- To add tables, copy existing dataframes one by one.
+
+```r
+copy_to(my_db, surveys)
+copy_to(my_db, plots)
+my_db
+```
+
 ## Additional Resources
 [Data Carpentry](http://www.datacarpentry.org/ "Data Carpentry")
 * Today's lesson (plus more) can be found here.
