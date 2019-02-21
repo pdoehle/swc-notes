@@ -644,6 +644,9 @@ my_db
 [Tidyverse Website](https://www.tidyverse.org/ "Tidyverse")
 * An overview of the Tidyverse, complete with cheat sheets.
 
+[Tidy Data](http://vita.had.co.nz/papers/tidy-data.html "Tidy Data") by Hadley Wickham
+* Wickham's paper on Tidy Data in the Journal of Statistical Software.
+
 **ggplot2** by Hadley Wickham
 * Very detailed explanation of ggplot2's capabilities.
 * Contains explanations on how the software works and what decisions the developers made.
