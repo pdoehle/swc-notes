@@ -1,3 +1,7 @@
+# Note to self
+
+**Each side note corresponds to a slide.**
+
 # Links
 
 - [Clustering https://github.com/OpenRefine/OpenRefine/wiki/Clustering-In-Depth](https://github.com/OpenRefine/OpenRefine/wiki/Clustering-In-Depth)
