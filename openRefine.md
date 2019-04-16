@@ -1,3 +1,8 @@
+# Links
+
+- [Clustering https://github.com/OpenRefine/OpenRefine/wiki/Clustering-In-Depth](https://github.com/OpenRefine/OpenRefine/wiki/Clustering-In-Depth)
+- [Data Download https://ndownloader.figshare.com/files/7823341](https://ndownloader.figshare.com/files/7823341)
+
 # What is OpenRefine
 * It's a piece of software that runs in your browser and helps with the cleaning of messy data.
 > If OpenRefine is running but does not automatically open in your browser, go to either `http://127.0.0.1:3333/` or `http://localhost:3333` to launch the program.
@@ -13,21 +18,26 @@
 ## Creating a Project
 * Start up OpenRefine
 * Talk about different methods for importing data and starting a new project
-* Browse to `Portal_rodents` and select the `.csv` file. Click *Next*.
+- Use the download feature to pull down the data from the URL.
 * Talk about the features in the preview pane.
 * Once all looks good, click *Create Project*.
 
 ## Faceting
+- While OpenRefine looks similar to a spreadsheet, it function is very specialized.
 * One of the primary ways that OpenRefine handles data is through faceting. Let's see an example of what that looks like.
 1. Scroll over to the `scientificName` column.
 2. Click the down arrow and choose `Facet` > `Text facet`.
-* In the left panel, you'll now see a box containing every unique value in the `scientificName` column long with a number representing how man time that value occurs in the column.
-* Notice you can sort by `name` and `count`.
-> Do you notice any problems with the data?
+* In the left panel, you'll now see a box containing every unique value in the `scientificName` column long with a number representing how many times that value occurs in the column.
+* You can sort by `name` and `count`.
+> **Do you notice any problems with the data?**
+>
+> Many of the entries are close, but there are spelling errors and typos.
+
 * The facet gets right the heart of the problem. We will talk more in-depth about fixing data mistakes in a little bit.
 
 ### Question
 > **Using faceting, find out how many years are represented in the survey.**
+> 
 > A text facet on the `yr` column shows 26 years from 1977 to 2002 inclusive.
 
 ## Clustering
@@ -46,11 +56,16 @@
 ## Split
 * We can split a column into atomic data if need be.
 1. Click the arrow for the `scientificName` column.
+2. Split into genus and species.
 2. Choose *Edit Column* > *Split into several solumns*
 3. In the pop-up, replace the comma with a space in the *separator* box.
 4. Uncheck the box that says *Remove this column*.
+  - This keeps the original column.
+
 > **Notice some of the entries are blank. What happened?**
+>
 > Leading spaces!
+
 * We'll look at leading spaces in a few.
 * Let's rename the scientificName2 column to species.
 1. Click the arrow on the `scientificName2` column.
@@ -69,6 +84,7 @@
 1. *scientificName* > *Edit cells* > *Common transforms* > *Trim leading and trailing whitespace*
 * Notice the *Split* step from before has now disappeared in the *Undo/Redo* history.
 > **Repeat the same split operation as before (Don't forget to uncheck *Delete this Column*). Are the results different?**
+>
 > It works this time!
 
 ## Filtering
@@ -78,20 +94,26 @@
 * There are 48 results. We can click on the *Show: 50* link at the top to see them all.
 1. *scientificName* > *Facet* > *Text facet*.
 * Notice we can combine filters and facets.
-* Filters give us a subset of the data based on the criteria we set while facets give an overview description of the data currently selected.
+* *Filters give us a subset* of the data based on the criteria we set while *facets give an overview of the selected data.
 * We can click on the names and use the *Inclue/Exclude* links to display one or the other.
 
 ## Sorting
 * You can sort by different criteria.
 1. *mo* > *Sort...*
 2. Sort by text.
+
 > **What's the problem with this method?**
+>
 > 10 comes after 1 when sorting by text.
+
 1. Sort *mo* by number.
 * You can sort by multiple columns.
-1. Put another sort on plot by number.
+1. Also sort on plot by number.
+
 > **What plots have entries for January?**
+>
 > 3, 5, and 19.
+
 * If I want to sort by just plot, I check the box *sort by this column alone* when creating a sort.
 1. Sort by only *plot*.
 2. Remove all sorts by clicking on the *Sort* link at the top and selecting *Remove sort*
@@ -109,7 +131,7 @@
 * One feature is that we can see how columns relate to each other using scatter plots.
 1. *recordID* > *Facet* > *Scatterplot facet*
 * We can click on one of the scatter plots to select that particular facet.
-1. Drag a box on the scatter plot. This will filter out these particular data points from the scatter plot.
+1. Click and draw a box on the scatter plot. This will select matching entries in the data.
 
 ## Scripts from OpenRefine
 * One nice aspect of OpenRefine is that I can reproduce the same steps I just did on another version of similar data.
@@ -122,13 +144,12 @@
 
 ## Saving and Exporting
 * OpenRefine continually saves by default (similar to other Google software).
-1. Exit.
-2. Start a new project.
+1. Click *Open*.
 3. Select *Project* instead of importing a data file.
 * You can also export projects to be shared with colleagues.
 * `.tar.gz` is a special type of compressed file (like `.zip`) and you may need a special `.zip` program to open it. OpenRefine will automatically handle this when you import the project.
 1. Start a new project.
 2. *Import Project*
 * Using these methods, the entire OpenRefine project and its accompanying files are available to you.
-* You can also export just the cleaned data.
+* You can also export the cleaned data.
 1. *Export* > *Comma-separated value*
