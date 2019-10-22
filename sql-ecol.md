@@ -1,6 +1,14 @@
 # SQL for Ecology
 ## Preparation Note
-Have a tab open with the table of data types for people to select during the first section.
+- Have a tab open with the [table](datacarpentry.org/sql-ecology-lesson/00-sql-introduction/index.html) of data types for people to select during the first section.
+
+## Dataset
+- Time-series for a small mammal community in southern Arizona.
+- Study of the effect of rodents and ants on a plant community.
+- Been running almost 40 years.
+- Rodents sampled on a series of 24 plots with different experimental manipulations controlling which rodents are allowed access to which plots.
+- Dataset has been used in over 100 publications.
+- Simplified a bit for the purposes of this workshop.
 
 ## Databases Using SQL
 ### Objectives
@@ -8,7 +16,8 @@ Have a tab open with the table of data types for people to select during the fir
 - Create and populate a database from a text file.
 - Define SQLite data types.
 
-### Goals
+### Qustions
+- Begin by openning the three CSV files in Excel: `surveys.csv`, `species.csv`, and `plots.csv`.
 - Questions: How has the hind-foot length and weight of Dipodomys species changed over time? What is the average weight of each species, per year?
 - To answer these kinds of questions, we often need to do the following types of data operations:
   - Select subsets of the data (rows and columns).
@@ -28,6 +37,7 @@ Have a tab open with the table of data types for people to select during the fir
 - There are many different database management systems for working with relational data.
 - We are going to use SQLite today.
 - SQL is the language used across most database management systems.
+	- **S**tructured **Q**uery **L**anguage.
 
 ### Relational Database
 - Let's take a look at the preexisting database `portal_mammals.sqlite`.
@@ -196,7 +206,7 @@ WHERE (year >= 2000) AND (species_id IN ('DM', 'DO', 'DS'));
 - If a query becomes very complex, it can be useful to add comments by using `--`.
 
 ```sql
--- Get post 2000 dat on Dipodomys species
+-- Get post 2000 data on Dipodomys species
 -- These are in the surveys table and we are interseted in all columns
 SELECT * 
 FROM surveys
@@ -277,7 +287,7 @@ FROM surveys;
 - We can find out how much all these individuals weigh by using `SUM()`.
 
 ```sql
-SELECT COUNT(*), SUM(WEIGHT)
+SELECT COUNT(*), SUM(weight)
 FROM surveys;
 ```
 
@@ -298,7 +308,7 @@ SELECT SUM(weight), AVG(weight), MIN(weight), MAX(weight)
 FROM surveys;
 ```
 
-- Modify your query so it outputs only the weights between 5 and 10.
+- Modify your query so it  only includes the weights between 5 and 10 in its calculations.
 
 ```sql
 SELECT SUM(weight), AVG(weight), MIN(weight), MAX(weight)
@@ -306,7 +316,7 @@ FROM surveys
 WHERE (weight > 5) AND (weight < 10);
 ```
 
-- We can use `GROUP BY` to count how many individuals were counted in each species.
+- We can use `GROUP BY` to count how many individuals are in each group.
 
 ```sql
 SELECT species_id, COUNT(*)
@@ -373,6 +383,9 @@ SELECT *
 FROM surveys
 WHERE year = 2000 AND (month > 4 AND month < 10);
 ```
+
+- The view shows up in *Database Structure* like the tables do.
+
 - Now we can query and work with a subset of the data that we need for our project.
 
 ```sql
