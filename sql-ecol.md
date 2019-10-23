@@ -1,6 +1,8 @@
 # SQL for Ecology
 ## Preparation Note
 - Have a tab open with the [table](datacarpentry.org/sql-ecology-lesson/00-sql-introduction/index.html) of data types for people to select during the first section.
+- Items for Etherpad:
+	- https://ndownloader.figshare.com/files/2292171
 
 ## Dataset
 - Time-series for a small mammal community in southern Arizona.
@@ -441,13 +443,15 @@ ON surveys.species_id = species.species_id;
 - Run SQL queries in R using `RSQLite` and `dplyr`.
 
 ### Connecting to Databases
-- By default R loads the entire data set you are working with into your computer's memory. This does not work well if your data set is too big.
+- By default R loads the entire dataset you are working with into your computer's memory. This does not work well if your data set is too big.
 
 - One of the ways to get around this is to connect R to an external database.
 
 - You can make queries and import the subset of the data that you want to work with.
 
 - We will use the packages `dbplyr` and `RSQLite` to connect R to a database.
+
+- Start a new RStudio project and create a new R script.
 
 ```r
 install.packages(c("dbplyr", "RSQLite"))
