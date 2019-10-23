@@ -2,7 +2,9 @@
 ## Preparation Note
 - Have a tab open with the [table](datacarpentry.org/sql-ecology-lesson/00-sql-introduction/index.html) of data types for people to select during the first section.
 - Items for Etherpad:
-	- https://ndownloader.figshare.com/files/2292171
+	- [Dataset Page]( https://figshare.com/articles/Portal_Project_Teaching_Database/1314459 ):  https://figshare.com/articles/Portal_Project_Teaching_Database/1314459 
+	- [Dataset Download](https://ndownloader.figshare.com/files/2292171): https://ndownloader.figshare.com/files/2292171
+	- [Carpentries Setup Page]( https://datacarpentry.org/sql-ecology-lesson/setup.html ):  https://datacarpentry.org/sql-ecology-lesson/setup.html 
 
 ## Dataset
 - Time-series for a small mammal community in southern Arizona.
