@@ -2,3 +2,4 @@
 *.log
 *.out
 .Rhistory
+.ipynb_checkpoints/*
