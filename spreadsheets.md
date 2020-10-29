@@ -347,8 +347,9 @@ Observation_01 	first_observation 	1st Obsquires special consideration or is sus
 - You can prevent invalid data from being entered by using Data Validation
   - e.g. If research is being conducted at sites A, B, and C, then V would be an invalid value for a `site` column
 
-1. Select the cells or column you want to validate
-2. On the `Data` tab, select `Data Validation`
+1. Open `surveys.csv`
+2. Select the cells or column you want to validate
+3. On the `Data` tab, select `Data Validation`
 
 ![Data validation](https://datacarpentry.org/spreadsheet-ecology-lesson/fig/data_validation.png)
 
@@ -393,10 +394,12 @@ Observation_01 	first_observation 	1st Obsquires special consideration or is sus
 - Use with caution
 - Can be a good strategy for flagging outliers
 
-> 1. Highlight the `Weight_grams column`
-> 2. Click `Home` > `Conditional Formating...` and choose a formatting rule
-> 3. Apply any `2-Color Scale` formatting rule
-> 4. Do you notice any strange values?
+> 1. Open `surveys.csv` 
+> 2. Highlight the `hindfoot_length`
+> 3. Click `Home` > `Conditional Formating...` and choose a formatting rule
+>   1. LibreOffice: *Format* > *Conditional* > *Condition*
+> 4. Apply any `2-Color Scale` formatting rule
+> 5. Do you notice any strange values?
 
 ![](https://datacarpentry.org/spreadsheet-ecology-lesson/fig/conditional_formating.png)
 

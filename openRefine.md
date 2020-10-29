@@ -180,39 +180,102 @@
 2. Perform the same split operation on `scientificName that you did earlier.
 3. This time you only get two new columns, why?
 
+## Filtering and Sorting with OpenRefine
 
-## Filtering
-* If your facet is still on, remove it.
+**Questions:**
+
+- How can we select only a subset of our data to work with?
+- How can we sort our data?
+
+**Objectives:**
+
+- Employ *text filter* or *include/exclude* to filter a subset of rows.
+- Sort tables by a column.
+- Sort tables by multiple columns.
+
+### Filtering
+
+- We can filter entries to work on a subset of data in OpenRefine
+
 1. *scientificName* > *Text filter*
-2. Type `bai`.
-* There are 48 results. We can click on the *Show: 50* link at the top to see them all.
-1. *scientificName* > *Facet* > *Text facet*.
-* Notice we can combine filters and facets.
-* *Filters give us a subset* of the data based on the criteria we set while *facets give an overview of the selected data.
-* We can click on the names and use the *Inclue/Exclude* links to display one or the other.
+2. Close the text facet
+3. Type *bai* and press <kbd>Return</kdb>
+4. Change the view to show fifty rows
+5. You can now see all entries with a scientific name that starts with "bai"
 
-## Sorting
-* You can sort by different criteria.
-1. *mo* > *Sort...*
-2. Sort by text.
+### Excluding Entries
 
-> **What's the problem with this method?**
+1. You have two different species in this subset
+2. *scientificName* > *Facet* > *Text facet*
+3. You can combine filters and facets
+4. Filters give you a subset of your data by filtering out other data
+5. Facets give you a general overview of the currently selected data
+6. Hover over the two species and *include*/*exclude* them
+
+### Sort
+
+- You can sort columns according to all kind of criteria by selecting `Sort...` from the columns drop down arrow
+- You can also specify what order `Blanks` and `Errors` are sorted in the results
+
+> Exercise: Sort by month. How can you ensure that months are in order?
 >
-> 10 comes after 1 when sorting by text.
+> Ensure you are sorting by number and not alphabetically.
 
-1. Sort *mo* by number.
-* You can sort by multiple columns.
-1. Also sort on plot by number.
+- If you already have a sort in place, the menu changes to remind you that you have already set a sort
+- You get additional options...
+  - *Sort* > *Sort...* - Modify the original sort
+  - *Sort* > *Reverse* - Reverse the order
+  - *Sort* > *Remove sort* - Undo your sort
 
-> **What plots have entries for January?**
->
-> 3, 5, and 19.
+### Sorting by multiple columns
 
-* If I want to sort by just plot, I check the box *sort by this column alone* when creating a sort.
-1. Sort by only *plot*.
-2. Remove all sorts by clicking on the *Sort* link at the top and selecting *Remove sort*
-> **Sort by *year*, *month*, and *day*, in that order.**
-* I can remove any of the sorts in any order by going back up to the *Sort* menu.
+- You can sort by multiple columns by repeating this process for each column
+- The order of the sort will depend on the order you set the sorts
+- To restart the sorting process, check the *sort by this column alone* box in the *Sort* pop-up menu
+
+1. *mo* > *Sort* > *Remove sort*
+
+> Exercise: Sort by `year`, `month`, and `day` in that order. Try putting some in reverse order. Use *mo* > *Sort* > *Remove sort*. Notice how it changes the order. Remove all your sorts once your are finished.
+
+## Examining numbers in OpenRefine
+
+**Questions:**
+
+- How can we convert a column from one data type to another?
+- How can we visualize relationships among columns?
+
+
+**Objectives:**
+
+- Transform a text column into a number column.
+- Identify and modify non-numeric values in a column using facets.
+- Use the scatter plot facet to examine relationships among columns.
+
+### Numbers
+
+- OpenRefine treats all imported values as text values by default
+- We can change a column's type by using *Edit cells* > *Common transforms*
+
+1. Remove any facets and filters
+2. *recordID* > *Edit cells* > *Common transforms...* > *To number*
+3. Try transforming `scientificName` to numerical values. Did it work?
+
+### Numeric facet
+
+- Now that we have numeric values, we can work with numeric facets
+- Numeric facets can help us uncover non-number values or blanks
+
+1. Change a few values in `recordID` to letters
+2. Apply a numeric facet to the column
+3. Experiment with the slider and check boxes in this facet
+   1. The slider is a histogram of the values in the column
+4. Remove the facet and undo the non-numeric changes
+
+### Scatter plot facet
+
+- The scatter plot facet allows us to examine the relationship between different numeric columns
+
+1. 
 
 ## Numbers
 * By default, all values are imported into OpenRefine as text. However, we have numbers too.
