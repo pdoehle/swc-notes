@@ -275,38 +275,69 @@
 
 - The scatter plot facet allows us to examine the relationship between different numeric columns
 
-1. 
-
-## Numbers
-* By default, all values are imported into OpenRefine as text. However, we have numbers too.
-1. Remove all filters and facets so we can look at all the data.
-2. *recordID* > *Edit cells* > *Common transforms...* > *To number*
-3. Transform three more columns, including *period*.
-
-## Numeric Facet
-* Numeric facets have some neat features that we don't get with text facets.
-* One feature is that we can see how columns relate to each other using scatter plots.
-1. *recordID* > *Facet* > *Scatterplot facet*
-* We can click on one of the scatter plots to select that particular facet.
-1. Click and draw a box on the scatter plot. This will select matching entries in the data.
+1. Change on the columns to numeric columns that should be: `recordID`, `mo`, `dy`, `yr`, `period`, `plot`, `decimalLatitude`, `decimalLongitude`.
+2. *recordID* > *Facet* > *ScatterPlot facet*
+3. We can see the values plotted against each of the other numeric values.
 
 ## Scripts from OpenRefine
-* One nice aspect of OpenRefine is that I can reproduce the same steps I just did on another version of similar data.
-1. *Undo/Redo* > *Extract...*
-2. Copy the JSON code into a text editor.
-3. Start a new project and import the uncleaned version of the data set that we started with.
-4. *Undo/Redo* > *Apply*
-5. Paste the contents of the `.txt` file.
-6. *Perform operations*.
 
-## Saving and Exporting
-* OpenRefine continually saves by default (similar to other Google software).
-1. Click *Open*.
-3. Select *Project* instead of importing a data file.
-* You can also export projects to be shared with colleagues.
-* `.tar.gz` is a special type of compressed file (like `.zip`) and you may need a special `.zip` program to open it. OpenRefine will automatically handle this when you import the project.
-1. Start a new project.
-2. *Import Project*
-* Using these methods, the entire OpenRefine project and its accompanying files are available to you.
-* You can also export the cleaned data.
-1. *Export* > *Comma-separated value*
+**Questions:**
+
+- How can we document the data-cleaning steps we've applied to our data?
+- How can we apply these steps to additional data sets?
+
+**Objectives:**
+
+- Describe how OpenRefine generates JSON code.
+- Demonstrate ability to export JSON code from OpenRefine.
+- Save JSON code from and analysis.
+- Apply saved JSON code to an analysis.
+
+### Scripts
+
+- OpenRefine keeps track of all your steps and saves them in a format called JSON
+- You can export your steps and then re-apply them to another file
+- This allows you to repeat an analysis or cleaning on multiple files.
+- You can even share your steps with collaborators
+
+1. *Undo / Redo* > *Extract...*
+2. Paste the code into a plain-text editor
+3. Save as plain text
+
+- Reapply the steps to an unclean version of the data set
+
+1. [Download](https://ndownloader.figshare.com/files/7823341) an unclean version
+2. Click *Open...* to start a new project and import the file (name it something different)
+3. *Undo / Redo* > *Apply*
+4. Paste in the steps
+5. Click *Perform operations*
+
+- This allows you to break data entry out to different team members (so long as they have the same headers)
+
+## Exporting and saving data from OpenRefine
+
+**Questions:**
+
+- How can we save and export our cleaned data from OpenRefine?
+
+**Objectives:**
+
+- Save an OpenRefine project.
+- Export cleaned data from and OpenRefine project.
+
+### Saving and Exporting
+
+- OpenRefine saves automatically in the background
+- If you close it and open it again, you can see a list of your projects
+- You can export a project and share it with others
+
+1. Click *Export*
+2. Select *Export project
+3. A `tar.gz` file will begin downloading just like an online download
+
+- `tar.gz` files require special software on Windows (7-zip or WinZip)
+
+- To import: *Open...* > *Import Project* > Select your file
+
+- If you want to export just the data (and not the OpenRefine project): *Export* > Select file type > Look in `Downloads` folder
+
