@@ -1,7 +1,9 @@
 # Data Organization in Spreadsheets for Ecologists
+
 - Teaching notes from [Data Organization in Spreadsheets for Ecologists](https://datacarpentry.org/spreadsheet-ecology-lesson/)
 
 ## Setup
+
 1. Download the [data](https://ndownloader.figshare.com/files/2252083)
 
 > [Full teaching database](https://figshare.com/articles/Portal_Project_Teaching_Database/1314459)
@@ -16,7 +18,9 @@
 3. Create a folder on your desktop called `dc_workshop` and move the downloaded data file (`survey_data_spreadsheet_messy.xls`) there.
 
 ## Introduction
+
 **Questions:** 
+
 - What are the basic principles for using spreadsheets for good data organization?
 
 **Objectives:**
